@@ -126,8 +126,8 @@ const ProjectsPage = () => {
                 "Real-time updates and responsive design for all devices"
             ],
             technologies: ["Next.js", "React.js", "Node.js", "MongoDB", "Mongoose"],
-            liveLink: "https://attend-ease.com",
-            githubLink: "https://github.com/your-username/attend-ease"
+            liveLink: "https://attend-ease-iota.vercel.app/",
+            githubLink: "https://github.com/ANAS727189/AttendEase"
         },
         {
             title: "MediaHub",
@@ -141,8 +141,8 @@ const ProjectsPage = () => {
                 "Dark/Light mode theme support for comfortable viewing"
             ],
             technologies: ["React.js", "Node.js", "Express", "MongoDB", "Clerk", "FFmpeg"],
-            liveLink: "https://mediahub.com",
-            githubLink: "https://github.com/your-username/mediahub"
+            liveLink: "https://front-media.onrender.com/",
+            githubLink: "https://github.com/ANAS727189/MediaHub"
         }
     ];
 
