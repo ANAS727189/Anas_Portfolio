@@ -23,7 +23,7 @@ const Navbar = () => {
 
     const socialLinks = [
         { 
-            href: "https://www.linkedin.com/in/anas-khan-7a6a5b1b7/",
+            href: "https://www.linkedin.com/in/anas-k-71b473296/",
             icon: Linkedin,
             label: "LinkedIn",
             hoverColor: "hover:text-[#0077B5]"
