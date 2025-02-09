@@ -23,6 +23,7 @@ export default function Home() {
   };
 
   return (
+    <>
     <div className="min-h-screen flex justify-center bg-black text-white">
       <div className="max-w-4xl w-full px-4 py-10">
         <motion.div
@@ -96,5 +97,6 @@ export default function Home() {
         </motion.div>
       </div>
     </div>
+    </>
   );
 }

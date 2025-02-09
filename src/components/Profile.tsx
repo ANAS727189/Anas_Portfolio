@@ -42,19 +42,32 @@ const Profile = () => {
     useEffect(() => {
         const fetchData = async () => {
         try {
-            const githubRes = await fetch('https://api.github.com/users/ANAS727189');
+            const headers = {
+                'Accept': 'application/vnd.github.v3+json',
+                'Authorization': `Bearer ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`
+            };
+            const githubRes = await fetch('https://api.github.com/users/ANAS727189', {
+                headers,
+                cache: 'force-cache'
+            });
+            const reposRes = await fetch('https://api.github.com/users/ANAS727189/repos?per_page=100', {
+                headers,
+                cache: 'force-cache'
+            });
             const leetcodeRes = await fetch('https://leetcode-stats-api.herokuapp.com/Anas_Khan83');
-            const reposRes = await fetch('https://api.github.com/users/ANAS727189/repos')
             
             const githubData = await githubRes.json();
             const leetcodeData = await leetcodeRes.json();
             const reposData = await reposRes.json();
-            
-            console.log(githubData, leetcodeData, reposData);
-
+        console.log(githubData, leetcodeData, reposData);
             setGithubData(githubData);
             setLeetcodeData(leetcodeData);
             setRepoData(reposData);
+            console.log(githubData, leetcodeData, reposData);
+
+            setGithubData(githubData);
+        setLeetcodeData(leetcodeData);
+            setRepoData(Array.isArray(reposData) ? reposData : []);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
