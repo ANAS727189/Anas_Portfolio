@@ -70,7 +70,7 @@ export default function Home() {
             ))}
           </motion.ul>
           <Button
-          onClick={() => window.open("/Anas-Final-Resume-New.docx.pdf")}
+          onClick={() => window.open("/My_Resume.pdf")}
           className="mt-4 hover:bg-blue-600 transition-all shadow-lg font-bold"
           >View Resume</Button>
         </motion.div>
