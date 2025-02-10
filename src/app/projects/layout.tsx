@@ -1,34 +1,16 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "../globals.css";
+import type { Metadata } from "next"
+import type React from "react"
 
-const geistSans = Geist({
-    variable: "--font-geist-sans",
-    subsets: ["latin"],
-    });
+export const metadata: Metadata = {
+    title: "Projects | Portfolio",
+    description: "Anas's portfolio projects",
+    }
 
-    const geistMono = Geist_Mono({
-    variable: "--font-geist-mono",
-    subsets: ["latin"],
-    });
-
-    export const metadata: Metadata = {
-    title: "Portfolio",
-    description: "Anas's portfolio",
-    };
-
-    export default function RootLayout({
+    export default function ProjectsLayout({
     children,
     }: Readonly<{
-    children: React.ReactNode;
+    children: React.ReactNode
     }>) {
-    return (
-        <html lang="en">
-        <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-            {children}
-        </body>
-        </html>
-    );
+    return <>{children}</>
 }
+

@@ -6,6 +6,8 @@ import { motion } from 'framer-motion';
 import { ExternalLink, Github } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import StarryBackground from "@/components/StarryBackground"
+import GlowingOrb from "@/components/GlowingOrb"
 
 const ProjectCard = ({ 
     title, 
@@ -39,13 +41,6 @@ const ProjectCard = ({
     };
 
     return (
-        <motion.div
-            variants={cardVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="mb-8"
-        >
             <Card className="bg-zinc-950/50 border border-zinc-800/50 backdrop-blur-sm overflow-hidden">
                 <CardHeader>
                     <CardTitle className="flex justify-between items-center">
@@ -108,7 +103,6 @@ const ProjectCard = ({
                     </div>
                 </CardContent>
             </Card>
-        </motion.div>
     );
 };
 
@@ -116,7 +110,7 @@ const ProjectsPage = () => {
     const projects = [
         {
             title: "AutoML-MLOps",
-            image: "/auto-ml.png",
+            image: "/auto-ml-cropped.png",
             description: "A comprehensive platform that simplifies the machine learning workflow by automating model development, training, and deployment. With features like real-time dashboards, interactive data visualization, and automated target selection.",
             features: [
                 "Automated end-to-end ML pipeline with intuitive drag-and-drop interface for dataset upload and model configuration",
@@ -176,7 +170,7 @@ const ProjectsPage = () => {
         },
         {
             title: "ProspectIQ",
-            image: "/prospect-iq-new.png",
+            image: "/prospect-iq-cropped.png",
             description: "A cutting-edge tool for B2B sales and marketing teams, combining web scraping, AI-powered data enrichment, and real-time analytics to streamline the lead generation process and provide actionable insights.",
             features: [
                 "Automated lead generation system powered by Crunchbase API with continuous data scraping and enrichment.",
@@ -190,7 +184,7 @@ const ProjectsPage = () => {
         },
         {
             title: "BuzzChat",
-            image: "/buzzchat-login.png",
+            image: "/buzz-chat-cropped.png",
             description: "🐝 BuzzChat is a real-time messaging app with React, Node.js, Socket.io. Secure auth, customizable themes, instant messaging. Full-stack modern chat solution !",
             features: [
                 "Real-time messaging system powered by Socket.io enabling instant communication and live status updates",
@@ -206,11 +200,15 @@ const ProjectsPage = () => {
     ];
 
     return (
-        <div className="min-h-screen flex justify-center bg-black text-white">
-            <div className="max-w-4xl w-full px-4 py-10">
-                <div className="flex justify-between items-center">
-                    <Navbar />
-                </div>
+        <div className="min-h-screen flex justify-center bg-black text-white relative overflow-hidden">
+        <StarryBackground />
+        <GlowingOrb />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500 rounded-full filter blur-3xl opacity-20 animate-pulse" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-500 rounded-full filter blur-3xl opacity-20 animate-pulse" />
+        <div className="max-w-4xl w-full px-4 py-10 relative z-10">
+            <div className="flex justify-between items-center">
+            <Navbar />
+            </div>
                 
                 <motion.h1 
                     className="mt-16 font-bold text-4xl bg-gradient-to-r from-blue-500 to-blue-300 bg-clip-text text-transparent"
