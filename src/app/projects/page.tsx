@@ -1,236 +1,195 @@
-"use client";
 import React from 'react';
-import Navbar from '@/components/Navbar';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { ExternalLink, Github } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import StarryBackground from "@/components/StarryBackground"
-import GlowingOrb from "@/components/GlowingOrb"
+import { Github, Globe } from 'lucide-react';
+import { projectsData } from '@/data/projects/projects';
+import type { JSX } from 'react'
+import {
+  SiReact,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiExpress,
+  SiExpress as SiExpressjs,
+  SiTypescript,
+  SiTailwindcss,
+  SiMongodb,
+  SiPython,
+  SiGo,
+  SiSolidity,
+  SiJavascript,
+  SiHtml5,
+  SiCss3,
+  SiEthereum,
+  SiAppwrite,
+  SiCloudinary,
+  SiFfmpeg,
+  SiStripe,
+  SiPytorch,
+  SiDaisyui,
+  SiC,
+  SiChartdotjs,
+  SiRedis,
+  SiFlask,
+  SiGnubash,
+} from 'react-icons/si'
+import { generateMetadata as getMeta } from "@/config/Meta";
 
-const ProjectCard = ({ 
-    title, 
-    image, 
-    description,
-    features,
-    technologies,
-    liveLink, 
-    githubLink,
-    index 
-}: { 
-    title: string;
-    image: string;
-    description: string;
-    features: string[];
-    technologies: string[];
-    liveLink?: string;
-    githubLink?: string;
-    index: number;
-}) => {
-    const cardVariants = {
-        hidden: { opacity: 0, y: 20 },
-        visible: { 
-            opacity: 1, 
-            y: 0,
-            transition: { 
-                duration: 0.5,
-                delay: index * 0.2 
-            }
-        }
-    };
+export async function generateMetadata() {
+  return getMeta("/projects");
+}
 
-    return (
-            <Card className="bg-zinc-950/50 border border-zinc-800/50 backdrop-blur-sm overflow-hidden">
-                <CardHeader>
-                    <CardTitle className="flex justify-between items-center">
-                        <span className="text-xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
-                            {title}
-                        </span>
-                        <div className="flex space-x-2 text-gray-500">
-                            {githubLink && (
-                                <a href={githubLink} target="_blank" rel="noopener noreferrer" 
-                                    className="p-2 hover:bg-zinc-800 hover:text-blue-500 rounded-full transition-colors">
-                                    <Github className="w-5 h-5" />
-                                </a>
-                            )}
-                            {liveLink && (
-                                <a href={liveLink} target="_blank" rel="noopener noreferrer"
-                                    className="p-2 hover:bg-zinc-800 hover:text-blue-500 rounded-full transition-colors">
-                                    <ExternalLink className="w-5 h-5" />
-                                </a>
-                            )}
-                        </div>
-                    </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                    <div className="relative group h-48 overflow-hidden">
-                        <Image
-                            src={image}
-                            width={800}
-                            height={400}
-                            alt={title}
-                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 to-transparent opacity-60" />
-                    </div>
+const techIcons: Record<string, JSX.Element> = {
+  'React.js': <SiReact size={18} />,
+  'Next.js': <SiNextdotjs size={18} />,
+  'Node.js': <SiNodedotjs size={18} />,
+  'Express': <SiExpress size={18} />,
+  'Express.js': <SiExpressjs size={18} />,
+  'TypeScript': <SiTypescript size={18} />,
+  'Typescript': <SiTypescript size={18} />,
+  'Tailwind CSS': <SiTailwindcss size={18} />,
+  'TailwindCSS': <SiTailwindcss size={18} />,
+  'MongoDB': <SiMongodb size={18} />,
+  'Python': <SiPython size={18} />,
+  'Python3': <SiPython size={18} />,
+  'Go': <SiGo size={18} />,
+  'Solidity': <SiSolidity size={18} />,
+  'JavaScript': <SiJavascript size={18} />,
+  'HTML/CSS': <SiHtml5 size={18} />,
+  'HTML': <SiHtml5 size={18} />,
+  'CSS': <SiCss3 size={18} />,
+  'Ethereum': <SiEthereum size={18} />,
+  'Appwrite': <SiAppwrite size={18} />,
+  'Cloudinary': <SiCloudinary size={18} />,
+  'FFmpeg': <SiFfmpeg
 
-                    <div className="space-y-4">
-                    <div className="flex flex-wrap gap-2">
-                            {technologies.map((tech, idx) => (
-                                <Badge 
-                                    key={idx} 
-                                    variant="secondary" 
-                                    className="bg-zinc-800/50 text-zinc-300 border border-zinc-700 hover:bg-zinc-900 hover:text-blue-500 cursor-pointer"
-                                >
-                                    {tech}
-                                </Badge>
-                            ))}
-                        </div>
-                        <p className="text-zinc-300">{description}</p>
-                        
-                        <div className="space-y-2">
-                            <h3 className="text-sm font-semibold text-zinc-200">Key Features:</h3>
-                            <ul className="space-y-2 text-zinc-300">
-                                {features.map((feature, idx) => (
-                                    <li key={idx} className="flex items-start gap-2">
-                                        <span className="text-blue-500 mt-1">•</span>
-                                        {feature}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
-                </CardContent>
-            </Card>
-    );
-};
+ size={18} />,
+  'Stripe': <SiStripe size={18} />,
+  'PyTorch': <SiPytorch size={18} />,
+  'DaisyUI': <SiDaisyui size={18} />,
+  'C': <SiC size={18} />,
+  'Chart.js': <SiChartdotjs size={18} />,
+  'Redis': <SiRedis size={18} />,
+  'Flask': <SiFlask size={18} />,
+  'Judge0 API': <SiGnubash size={18} />,
+  'LLVM': <SiGnubash size={18} />,
+  'watchdog': <SiPython size={18} />,
+  'tqdm': <SiPython size={18} />,
+  'colorama': <SiPython size={18} />,
+  'Ethers.js': <SiEthereum size={18} />,
+  'Wagmi': <SiEthereum size={18} />,
+  'OpenZeppelin': <SiEthereum size={18} />,
+  'Vite': <SiJavascript size={18} />,
+  'Auth0': <SiJavascript size={18} />,
+  'Leaflet': <SiJavascript size={18} />,
+  'Recharts': <SiChartdotjs size={18} />,
+  'Scikit-learn': <SiPython size={18} />,
+  'recharts': <SiChartdotjs size={18} />,
+  'Mongoose': <SiMongodb size={18} />,
+  'Gemini-api': <SiPython size={18} />,
+  'shadcn': <SiReact size={18} />,
+  'Clerk': <SiJavascript size={18} />,
+  'SERP-API': <SiPython size={18} />,
+  'Crunchbase API': <SiJavascript size={18} />,
+  'Zustand': <SiReact size={18} />,
+  'Nodejs': <SiNodedotjs size={18} />,
+  'ExpressJS': <SiExpressjs size={18} />
+}
 
-const ProjectsPage = () => {
-    const projects = [
-        {
-            title: "AutoML-MLOps",
-            image: "/auto-ml-cropped.png",
-            description: "A comprehensive platform that simplifies the machine learning workflow by automating model development, training, and deployment. With features like real-time dashboards, interactive data visualization, and automated target selection.",
-            features: [
-                "Automated end-to-end ML pipeline with intuitive drag-and-drop interface for dataset upload and model configuration",
-                "Real-time training dashboard with interactive visualizations and progress monitoring",
-                "Smart preprocessing engine with automated feature engineering and target variable detection",
-                "Comprehensive model evaluation suite featuring customizable metrics and performance comparisons",
-                "Flexible architecture supporting both automated workflows for beginners and custom configurations for experts"
-            ],
-            technologies: ["Next.js", "Python3", "Typescript", "Scikit-learn", "TailwindCSS", "recharts"],
-            // liveLink: "https://attend-ease-iota.vercel.app/",
-            githubLink: "https://github.com/ANAS727189/AutoML-MLOps/"
-        },
-        {
-            title: "AttendEase",
-            image: "/attend-ease.png",
-            description: "A centralized platform designed for efficient student record management, attendance tracking, and personalized course recommendations based on student grade.",
-            features: [
-                "Upload and manage courses by grade with YouTube-like video interface",
-                "Comprehensive student data management and grade organization",
-                "Efficient attendance tracking with date-wise and grade-wise filtering",
-                "Intuitive dashboard with modern UI and seamless navigation",
-                "Real-time updates and responsive design for all devices"
-            ],
-            technologies: ["Next.js", "React.js", "Node.js", "MongoDB", "Mongoose"],
-            liveLink: "https://attend-ease-iota.vercel.app/",
-            githubLink: "https://github.com/ANAS727189/AttendEase"
-        },
-        {
-            title: "CloudKeeper",
-            image: "/cloudkeeper.png",
-            description: "A modern take on cloud storage, offering space-efficient file management and AI-powered file analysis. It's designed to provide a seamless experience for users who need more than just storage - they need intelligent interaction with their data.",
-            features: [
-                "Enterprise-level storage system with Cloudinary-powered compression that automatically optimizes files while maintaining quality",
-                "AI-enhanced file analysis powered by Google's Gemini API for intelligent data insights and natural language queries",
-                "Modern, intuitive dashboard featuring real-time storage metrics and visual file type analytics",
-                "Comprehensive file management system with advanced search, filtering, and organization capabilities",
-                "Secure authentication and file-sharing infrastructure ensuring data protection and privacy"
-            ],
-            technologies: ["Next.js", "React.js", "Appwrite", "Cloudinary", "Gemini-api", "shadcn"],
-            liveLink: "https://cloud-keeper.vercel.app/",
-            githubLink: "https://github.com/ANAS727189/CloudKeeper"
-        },
-        {
-            title: "MediaHub",
-            image: "/media-hub.png",
-            description: "A robust platform designed for video streaming, media editing, and user management, combining seamless streaming capabilities with powerful editing tools.",
-            features: [
-                "Advanced video streaming with upload and management capabilities",
-                "Professional-grade media editor for images and videos",
-                "Secure user authentication and personalized experiences",
-                "Responsive design optimized for various devices",
-                "Dark/Light mode theme support for comfortable viewing"
-            ],
-            technologies: ["React.js", "Node.js", "Express", "MongoDB", "Clerk", "FFmpeg"],
-            liveLink: "https://front-media.onrender.com/",
-            githubLink: "https://github.com/ANAS727189/MediaHub"
-        },
-        {
-            title: "ProspectIQ",
-            image: "/prospect-iq-cropped.png",
-            description: "A cutting-edge tool for B2B sales and marketing teams, combining web scraping, AI-powered data enrichment, and real-time analytics to streamline the lead generation process and provide actionable insights.",
-            features: [
-                "Automated lead generation system powered by Crunchbase API with continuous data scraping and enrichment.",
-                "AI-driven data analysis using Google's Gemini API for comprehensive prospect profiling and insights.",
-                "Real-time SERP intelligence providing up-to-date company digital footprints and market presence.",
-                "Advanced analytics dashboard featuring interactive visualizations and performance metrics.",
-                "Automated 4-hour data refresh cycle ensuring consistently updated prospect information."
-            ],
-            technologies: ["Python3", "React.js", "Flask", "SERP-API", "Crunchbase API", "shadcn"],
-            githubLink: "https://github.com/ANAS727189/ProspectIQ"
-        },
-        {
-            title: "BuzzChat",
-            image: "/buzz-chat-cropped.png",
-            description: "🐝 BuzzChat is a real-time messaging app with React, Node.js, Socket.io. Secure auth, customizable themes, instant messaging. Full-stack modern chat solution !",
-            features: [
-                "Real-time messaging system powered by Socket.io enabling instant communication and live status updates",
-                "Robust authentication infrastructure using JWT for secure user access and data protection",
-                "Dynamic theme customization allowing personalized user experience and interface preferences",
-                "Comprehensive user profile system with Cloudinary-powered avatar management",
-                "Advanced messaging features including typing indicators and online/offline status tracking"
-            ],
-            technologies: ["Nodejs", "React.js", "ExpressJS", "MongoDB", "DaisyUI", "Cloudinary", "Zustand", "tailwindcss"],
-            liveLink: "https://buzz-chat-qtdn.onrender.com/",
-            githubLink: "https://github.com/ANAS727189/Buzzchat"
-        },
-    ];
+const Project = () => {
+  return (
+    <section className="max-w-5xl mx-auto px-4 py-10 bg-white dark:bg-black text-gray-900 dark:text-white">
+      {/* Main Heading */}
+      <div className="text-center mb-8">
+        <h1 className="text-4xl font-bold text-gray-900 dark:text-white">Projects</h1>
+        <p className="text-gray-600 dark:text-gray-400 mt-2">
+          My projects and work across different technologies and domains.
+        </p>
+        <div className="h-px bg-gray-200 dark:bg-gray-800 mt-6"></div>
+      </div>
 
-    return (
-        <div className="min-h-screen flex justify-center bg-black text-white relative overflow-hidden">
-        <StarryBackground />
-        <GlowingOrb />
-        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500 rounded-full filter blur-3xl opacity-20 animate-pulse" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-500 rounded-full filter blur-3xl opacity-20 animate-pulse" />
-        <div className="max-w-4xl w-full px-4 py-10 relative z-10">
-            <div className="flex justify-between items-center">
-            <Navbar />
-            </div>
-                
-                <motion.h1 
-                    className="mt-16 font-bold text-4xl bg-gradient-to-r from-blue-500 to-blue-300 bg-clip-text text-transparent"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                >
-                    Projects
-                </motion.h1>
+      {/* All Projects Header */}
+      <div className="flex items-center gap-2 mb-6">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">All Projects</h3>
+        <span className="text-gray-500 dark:text-gray-400 font-normal">
+          ({projectsData.length} projects)
+        </span>
+      </div>
 
-                <div className="mt-8">
-                    {projects.map((project, index) => (
-                        <ProjectCard
-                            key={index}
-                            {...project}
-                            index={index}
-                        />
-                    ))}
+      {/* Project Grid */}
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
+        {projectsData.map((project) => (
+          <div
+            key={project.title}
+            className="rounded-2xl p-[1px] hover:scale-[1.02] transition-transform duration-200 bg-gray-200 dark:bg-gray-700"
+          >
+            <div className="bg-white dark:bg-[#111] rounded-2xl overflow-hidden flex flex-col h-full shadow-md dark:shadow-none">
+              {/* Project Image */}
+              {project.image && (
+                <div className="relative w-full h-48">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover"
+                  />
                 </div>
+              )}
+
+              {/* Content */}
+              <div className="p-6 flex flex-col flex-grow">
+                {/* Title + Icons */}
+                <div className="flex justify-between items-start mb-3">
+                  <h4 className="text-xl font-semibold text-gray-900 dark:text-white">{project.title}</h4>
+                  <div className="flex gap-3">
+                    {project.liveLink && (
+                      <a
+                        href={project.liveLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white transition-colors"
+                      >
+                        <Globe size={20} />
+                      </a>
+                    )}
+                    {project.githubLink && (
+                      <a
+                        href={project.githubLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white transition-colors"
+                      >
+                        <Github size={20} />
+                      </a>
+                    )}
+                  </div>
+                </div>
+
+                {/* Description */}
+                <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 flex-grow">
+                  {project.description}
+                </p>
+
+                {/* Tech stack */}
+                <div className="mt-auto">
+                  <p className="text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Technologies</p>
+                  <div className="flex flex-wrap gap-2">
+                    {project.technologies?.slice(0, 6).map((tech) => (
+                      <span
+                        key={tech}
+                        className="bg-gray-100 dark:bg-gray-800 text-xs px-2.5 py-1 rounded-md text-gray-700 dark:text-gray-300 flex items-center gap-1.5"
+                      >
+                        {techIcons[tech] || <SiJavascript size={18} />}
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
-        </div>
-    );
+          </div>
+        ))}
+      </div>
+    </section>
+  );
 };
 
-export default ProjectsPage;
+export default Project;

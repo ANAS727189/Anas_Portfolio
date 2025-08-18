@@ -1,110 +1,100 @@
-"use client"
-import Link from "next/link"
-import { Home, FolderKanban, Linkedin, Github, Twitter, Mail } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { usePathname } from "next/navigation"
-import { motion } from "framer-motion"
+"use client";
+import { Moon, Sun } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
-    const pathname = usePathname()
+  const [theme, setTheme] = useState<string | null>(null);
 
-    const navLinks = [
-        { path: "/", icon: Home, label: "Home" },
-        { path: "/projects", icon: FolderKanban, label: "Projects" },
-    ]
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    const initialTheme = savedTheme || "light";
+    setTheme(initialTheme);
 
-    const socialLinks = [
-        {
-        href: "https://www.linkedin.com/in/anas-k-71b473296/",
-        icon: Linkedin,
-        label: "LinkedIn",
-        hoverColor: "hover:text-[#0077B5]",
-        },
-        {
-        href: "https://www.github.com/ANAS727189/",
-        icon: Github,
-        label: "GitHub",
-        hoverColor: "hover:text-blue-500",
-        },
-        {
-        href: "https://www.x.com/Anas_is_me/",
-        icon: Twitter,
-        label: "Twitter",
-        hoverColor: "hover:text-[#1DA1F2]",
-        },
-        {
-        href: "mailto:anas23khan083@gmail.com",
-        icon: Mail,
-        label: "Email",
-        hoverColor: "hover:text-blue-400",
-        },
-    ]
+    if (initialTheme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, []);
 
-    return (
-        <nav className="flex justify-between items-center w-full">
-        <motion.div
-            className="flex items-center space-x-2"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-        >
-            {navLinks.map((link) => {
-            const Icon = link.icon
-            const isActive = pathname === link.path
+  const handleToggle = () => {
+    if (!theme) return;
+    const newTheme = theme === "dark" ? "light" : "dark";
+    localStorage.setItem("theme", newTheme);
+    setTheme(newTheme);
 
-            return (
-                <Link href={link.path} key={link.path} passHref>
-                <Button
-                    variant={isActive ? "default" : "ghost"}
-                    className={`
-                                        flex items-center gap-2 px-4 
-                                        ${isActive ? "bg-blue-500 hover:bg-blue-600" : "hover:bg-zinc-800/50 hover:text-gray-500"}
-                                        transition-all duration-200
-                                    `}
-                >
-                    <Icon className="w-4 h-4" />
-                    <span className="hidden sm:inline">{link.label}</span>
-                </Button>
-                </Link>
-            )
-            })}
-        </motion.div>
+    if (newTheme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  };
 
-        <motion.div
-            className="flex items-center space-x-1"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-        >
-            {socialLinks.map((link, index) => {
-            const Icon = link.icon
-            return (
-                <motion.a
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`
-                                    p-2 rounded-full
-                                    hover:bg-zinc-800/50
-                                    transition-all duration-200
-                                    ${link.hoverColor}
-                                `}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                >
-                <Icon className="w-5 h-5" />
-                <span className="sr-only">{link.label}</span>
-                </motion.a>
-            )
-            })}
-        </motion.div>
-        </nav>
-    )
-}
+  // Smooth scroll handler
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    e.preventDefault();
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
-export default Navbar
+  return (
+    <nav className="sticky top-0 z-20 rounded-md py-4 backdrop-blur-sm">
+      <div className="flex items-center justify-between px-6 max-w-5xl mx-auto">
+        <div className="flex items-baseline gap-4">
+          {/* Avatar */}
+          <Link href="/">
+            <Image
+              src="/my-cartoon.png"
+              alt="My Cartoon"
+              width={48}
+              height={48}
+              className="h-12 w-12 rounded-md border border-gray-200 bg-blue-300 transition-all duration-300 ease-in-out hover:scale-90 dark:bg-yellow-300"
+            />
+          </Link>
 
+          {/* Links */}
+          <div className="flex items-center justify-center gap-4">
+            <a
+              href="#work"
+              onClick={(e) => handleNavClick(e, "work")}
+              className="cursor-pointer transition-all duration-300 ease-in-out hover:underline hover:decoration-wavy hover:underline-offset-4"
+            >
+              Work
+            </a>
+            <a
+              href="#blogs"
+              onClick={(e) => handleNavClick(e, "blogs")}
+              className="cursor-pointer transition-all duration-300 ease-in-out hover:underline hover:decoration-wavy hover:underline-offset-4"
+            >
+              Blogs
+            </a>
+            <a
+              href="#projects"
+              onClick={(e) => handleNavClick(e, "projects")}
+              className="cursor-pointer transition-all duration-300 ease-in-out hover:underline hover:decoration-wavy hover:underline-offset-4"
+            >
+              Projects
+            </a>
+          </div>
+        </div>
+
+        {/* Right side - Theme Toggle */}
+        <div className="flex items-center gap-4">
+          <button onClick={handleToggle} disabled={!theme}>
+            {theme === "dark" ? (
+              <Sun className="h-5 w-5" />
+            ) : (
+              <Moon className="h-5 w-5" />
+            )}
+          </button>
+        </div>
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;

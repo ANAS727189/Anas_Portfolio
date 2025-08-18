@@ -1,0 +1,1172 @@
+---
+title: "Mastering Golang: A Comprehensive Guide to Building Efficient Applications"
+description: "Dive into Golang with this comprehensive guide, covering fundamentals, advanced concepts, concurrency, APIs, and real-world examples with code snippets and best practices."
+image: "/golang-tut.webp"
+date: "2024-12-25"
+tags: ["coding", "golang", "programming"]
+isPublished: true
+author: "Anas"
+---
+
+
+Go (Golang) is a statically typed, compiled programming language designed for simplicity, performance, and scalability. Created by Google, it excels in building concurrent, networked, and cloud-native applications. This guide provides an in-depth exploration of Go, from its fundamentals to advanced topics like concurrency and API development, complete with practical examples and best practices. Whether you're a beginner or an experienced developer, this blog will equip you with the tools to master Go and build robust applications.
+
+## Index
+
+- [Why Learn Go?](#why-learn-go)
+- [Setting Up Your Go Environment](#setting-up-your-go-environment)
+- [Go Fundamentals](#go-fundamentals)
+  - [Hello World](#hello-world)
+  - [Variables and Data Types](#variables-and-data-types)
+  - [User Input](#user-input)
+  - [Type Conversion](#type-conversion)
+  - [Working with Time](#working-with-time)
+  - [Pointers](#pointers)
+  - [Arrays and Slices](#arrays-and-slices)
+  - [Maps](#maps)
+  - [Structs](#structs)
+  - [Control Flow: If-Else and Switch](#control-flow-if-else-and-switch)
+  - [Loops](#loops)
+  - [Functions and Variadic Parameters](#functions-and-variadic-parameters)
+  - [Defer](#defer)
+- [File Operations](#file-operations)
+- [HTTP Requests and APIs](#http-requests-and-apis)
+  - [GET Requests](#get-requests)
+  - [POST Requests](#post-requests)
+  - [Building a REST API](#building-a-rest-api)
+  - [Netflix API with MongoDB](#netflix-api-with-mongodb)
+- [Concurrency in Go](#concurrency-in-go)
+  - [Goroutines](#goroutines)
+  - [WaitGroups](#waitgroups)
+  - [Mutexes and Race Conditions](#mutexes-and-race-conditions)
+  - [Channels](#channels)
+- [Generating Random Numbers](#generating-random-numbers)
+- [Best Practices and Tips](#best-practices-and-tips)
+- [Conclusion](#conclusion)
+
+## Why Learn Go?
+
+Go is renowned for its simplicity, performance, and concurrency model, making it a top choice for modern software development. Here are key reasons to learn Go:
+
+- **Simplicity**: Minimal syntax with no classes or inheritance, reducing complexity.
+- **Concurrency**: Built-in goroutines and channels for efficient concurrent programming.
+- **Performance**: Compiled to machine code, offering near-C performance.
+- **Standard Library**: Comprehensive libraries for networking, file handling, and more.
+- **Cloud-Native**: Powers tools like Kubernetes, Docker, and Prometheus.
+
+<Callout type="info">
+Go is ideal for web servers, microservices, and distributed systems, making it a valuable skill for developers in cloud computing and backend development.
+</Callout>
+
+## Setting Up Your Go Environment
+
+To start building with Go, set up your development environment:
+
+1. **Install Go**: Download and install Go from [go.dev](https://go.dev/dl/). Verify the installation:
+   <CodeBlock language="bash">
+   ```bash
+   go version
+   ```
+   </CodeBlock>
+   Expected output: `go version go1.24.5`.
+
+2. **Workspace Setup**: Create a directory for your Go projects. Modern Go uses modules, so setting `GOPATH` is optional.
+
+3. **Initialize a Module**:
+   <CodeBlock language="bash">
+   ```bash
+   go mod init <module-name>
+   ```
+   </CodeBlock>
+   This creates a `go.mod` file to manage dependencies.
+
+4. **Install an IDE**: Use Visual Studio Code with the Go extension or JetBrains GoLand for a robust development experience.
+
+<Callout type="tip">
+Ensure your Go version is up-to-date to leverage the latest features and security patches.
+</Callout>
+
+## Go Fundamentals
+
+### Hello World
+
+Start with a simple "Hello, World!" program to understand Go's structure.
+
+<CodeBlock language="go">
+```go
+// 01hello/main.go
+package main
+import "fmt"
+
+func main() {
+    fmt.Println("Hello, World!")
+}
+```
+</CodeBlock>
+
+**Key Points**:
+- `package main` defines an executable program.
+- `import "fmt"` provides formatting and printing functions.
+- `func main()` is the entry point.
+- Run with `go run main.go`.
+
+### Variables and Data Types
+
+Go is statically typed, requiring explicit type declarations or type inference.
+
+<CodeBlock language="go">
+```go
+// 02variables/main.go
+package main
+import "fmt"
+
+const LoginStudent string = "logged in" // Public constant
+
+func main() {
+    var username string = "Anas"
+    fmt.Println(username)
+    fmt.Printf("Variable is of type: %T\n", username)
+
+    var isVerified bool = true
+    fmt.Println(isVerified)
+    fmt.Printf("Variable is of type: %T\n", isVerified)
+
+    var smallValue uint8 = 255
+    fmt.Println(smallValue)
+    fmt.Printf("Variable is of type: %T\n", smallValue)
+
+    var largeDecimal float64 = 43.55422445865
+    fmt.Println(largeDecimal)
+    fmt.Printf("Variable is of type: %T\n", largeDecimal)
+
+    var name = "Anas" // Type inference
+    fmt.Println(name)
+
+    numberOfStudents := 10000 // Walrus operator, only inside functions
+    fmt.Println(numberOfStudents)
+
+    fmt.Println(LoginStudent)
+}
+```
+</CodeBlock>
+
+**Learnings**:
+- Use `var` for explicit declarations or `:=` for type-inferred variables inside functions.
+- Public identifiers start with a capital letter (e.g., `LoginStudent`).
+- Common types: `string`, `bool`, `uint8`, `float64`, `int`.
+
+### User Input
+
+Handle user input using the `bufio` package.
+
+<CodeBlock language="go">
+```go
+// 03userinput/main.go
+package main
+import (
+    "bufio"
+    "fmt"
+    "os"
+)
+
+func main() {
+    welcome := "Welcome to the Go programming world!"
+    fmt.Println(welcome)
+
+    reader := bufio.NewReader(os.Stdin)
+    fmt.Println("Please enter your name:")
+
+    name, err := reader.ReadString('\n')
+    if err != nil {
+        fmt.Println("Error reading input:", err)
+        return
+    }
+    fmt.Println("Hello,", name)
+}
+```
+</CodeBlock>
+
+<Callout type="tip">
+Use `bufio.NewReader` for efficient input reading. Always check for errors to ensure robust input handling.
+</Callout>
+
+### Type Conversion
+
+Convert string input to numeric types using `strconv`.
+
+<CodeBlock language="go">
+```go
+// 04conversion/main.go
+package main
+import (
+    "bufio"
+    "fmt"
+    "os"
+    "strconv"
+    "strings"
+)
+
+func main() {
+    fmt.Println("Welcome to learning go course with me.")
+    fmt.Println("Please first tell me number between 1-5 defining your level of understanding Golang")
+    reader := bufio.NewReader(os.Stdin)
+    input, _ := reader.ReadString('\n')
+    fmt.Println("Your input is: " + input)
+    numRating, err := strconv.ParseFloat(strings.TrimSpace(input), 64)
+    if err != nil {
+        fmt.Println("Error parsing input, please enter a valid number between 1-5", err)
+        panic(err)
+    }
+    fmt.Println("Thanks for your rating, but we have decreased your understanding by 1, your new rating is: ", numRating-1)
+}
+```
+</CodeBlock>
+
+<Callout type="best-practice">
+Use `strings.TrimSpace` to remove trailing newlines from input. Always handle parsing errors to avoid crashes.
+</Callout>
+
+### Working with Time
+
+The `time` package provides robust time handling.
+
+<CodeBlock language="go">
+```go
+// 05mytime/main.go
+package main
+import (
+    "fmt"
+    "time"
+)
+
+func main() {
+    fmt.Println("Here we will learn about time in golang")
+
+    currTime := time.Now()
+    fmt.Println(currTime)
+
+    fmt.Println("Formatted time: ", currTime.Format("01-02-2006 15:04:05 Monday"))
+
+    currDate := time.Date(2020, time.August, 10, 23, 23, 0, 0, time.UTC)
+    fmt.Println(currDate)
+
+    fmt.Println("Formatted date: ", currDate.Format("01-02-2006 Monday"))
+}
+```
+</CodeBlock>
+
+<Callout type="tip">
+Use Go’s unique `01-02-2006` format for time formatting, based on the reference date `January 2, 2006`.
+</Callout>
+
+### Pointers
+
+Pointers allow direct memory manipulation.
+
+<CodeBlock language="go">
+```go
+// 06pointers/main.go
+package main
+import "fmt"
+
+func main() {
+    fmt.Println("Today we will learn about pointers.")
+    var ptr *int
+    fmt.Println("Default value of pointer is: ", ptr) // nil
+    myName := "Anas"
+    var check_ptr *string = &myName
+    fmt.Println("My name using pointers is: ", check_ptr)
+
+    myNum := 42
+    var new_ptr = &myNum
+    fmt.Println("Address of myNum is: ", new_ptr)
+    fmt.Println("Value of myNum is: ", *new_ptr)
+
+    *new_ptr += 1
+    fmt.Println("New value is: ", myNum)
+}
+```
+</CodeBlock>
+
+**Learning**: Pointers (`*`) reference memory addresses, and dereferencing (`*ptr`) accesses the value. Use pointers for efficient memory manipulation.
+
+### Arrays and Slices
+
+Arrays are fixed-size, while slices are dynamic.
+
+<CodeBlock language="go">
+```go
+// 07array/main.go
+package main
+import "fmt"
+
+func main() {
+    fmt.Println("Hello, Today we will learn about arrays in Go!")
+
+    var arr [5]int
+    arr[0] = 10
+    arr[1] = 20
+    arr[3] = 40
+    arr[4] = 50
+
+    fmt.Println("Array elements are:", arr)
+    fmt.Println("Length of the array is:", len(arr))
+    fmt.Println("Capacity of the array is:", cap(arr))
+
+    var fruitList = [4]string{"Apple", "Banana", "Cherry", "Date"}
+    fmt.Println("Fruit list is:", fruitList)
+}
+```
+</CodeBlock>
+
+<CodeBlock language="go">
+```go
+// 08slices-tut/main.go
+package main
+import (
+    "fmt"
+    "sort"
+)
+
+func main() {
+    var fruitList = []string{"Apple", "Mango", "Guava", "Banana", "Peach"}
+    fmt.Println("Fruit list is:", fruitList)
+    fruitList = append(fruitList, "Tomato", "Orange")
+    fmt.Println("New Fruit list is:", fruitList)
+
+    fruitList = fruitList[1:]
+    fmt.Println("After removing first element, Fruit list is:", fruitList)
+
+    fruitList = fruitList[1:3]
+    fmt.Println("After slicing, Fruit list is:", fruitList)
+
+    highScores := make([]int, 5)
+    highScores[0] = 154
+    highScores[1] = 120
+    highScores[2] = 30
+    highScores[3] = 10
+    highScores[4] = 50
+    fmt.Println("High scores are:", highScores)
+    highScores = append(highScores, 600, 700)
+    fmt.Println("New high scores are:", highScores)
+    sort.Ints(highScores)
+    fmt.Println("Sorted high scores are:", highScores)
+
+    var courses = []string{"Go", "Python", "Java", "C++", "JavaScript"}
+    fmt.Println("Courses are:", courses)
+    var idx int = 2
+    courses = append(courses[:idx], courses[idx+1:]...)
+    fmt.Println("After removing course at index", idx, "Courses are:", courses)
+}
+```
+</CodeBlock>
+
+<Callout type="best-practice">
+Use slices over arrays for flexibility. The `make` function pre-allocates memory for slices, improving performance.
+</Callout>
+
+### Maps
+
+Maps store key-value pairs.
+
+<CodeBlock language="go">
+```go
+// 09map/main.go
+package main
+import "fmt"
+
+func main() {
+    lang := make(map[string]string)
+    lang["en"] = "English"
+    lang["fr"] = "French"
+    lang["es"] = "Spanish"
+    lang["de"] = "German"
+
+    fmt.Println("Languages:", lang)
+    fmt.Println("EN stands for:", lang["en"])
+
+    delete(lang, "fr")
+
+    for key, val := range lang {
+        fmt.Printf("Key: %s, Value: %s\n", key, val)
+    }
+}
+```
+</CodeBlock>
+
+<Callout type="tip">
+Use `make` to initialize maps to avoid nil map errors. The `delete` function safely removes keys.
+</Callout>
+
+### Structs
+
+Structs define custom data types.
+
+<CodeBlock language="go">
+```go
+// 10structs/main.go
+package main
+import "fmt"
+
+type User struct {
+    Name   string
+    Email  string
+    Status bool
+    Age    int
+}
+
+func main() {
+    Anas := User{
+        Name:   "Anas",
+        Email:  "anas@example.com",
+        Status: true,
+        Age:    30,
+    }
+
+    fmt.Println("User Details:", Anas)
+    fmt.Printf("Anas details are: %+v\n", Anas)
+    fmt.Printf("Name is: %v & Email is: %v\n", Anas.Name, Anas.Email)
+}
+```
+</CodeBlock>
+
+**Learning**: Go lacks inheritance but supports composition. Use `+v` in `fmt.Printf` for verbose struct output.
+
+### Control Flow: If-Else and Switch
+
+<CodeBlock language="go">
+```go
+// 11ifelse/main.go
+package main
+import "fmt"
+
+func main() {
+    fmt.Println("Welcome to the if-else example in Go!")
+
+    loginCnt := 20
+    var res string
+
+    if loginCnt < 10 {
+        res = "Regular User"
+    } else if loginCnt >= 10 && loginCnt < 20 {
+        res = "Moderate User"
+    } else {
+        res = "Power User"
+    }
+    fmt.Println("User Level:", res)
+}
+```
+</CodeBlock>
+
+<CodeBlock language="go">
+```go
+// 12switch/main.go
+package main
+import (
+    "fmt"
+    "math/rand"
+    "time"
+)
+
+func main() {
+    fmt.Println("Welcome to the switch example in Go!")
+
+    rand.Seed(time.Now().UnixNano())
+    diceNumber := rand.Intn(6) + 1
+    fmt.Println("Value of diceNumber:", diceNumber)
+
+    switch diceNumber {
+    case 1:
+        fmt.Println("You rolled a one! Try again.")
+    case 2:
+        fmt.Println("You rolled a two! Not bad.")
+    case 3:
+        fmt.Println("You rolled a three! Good job.")
+    case 4:
+        fmt.Println("You rolled a four! Nice roll.")
+    case 5:
+        fmt.Println("You rolled a five! Almost there.")
+    case 6:
+        fmt.Println("You rolled a six! Excellent!")
+    default:
+        fmt.Println("Invalid roll. Please try again.")
+    }
+}
+```
+</CodeBlock>
+
+<Callout type="tip">
+Use `switch` for cleaner multi-condition checks. Seed random numbers with `time.Now().UnixNano()` for dynamic results.
+</Callout>
+
+### Loops
+
+Go supports a single `for` loop construct.
+
+<CodeBlock language="go">
+```go
+// 13loop/main.go
+package main
+import "fmt"
+
+func main() {
+    days := []string{"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"}
+
+    fmt.Println("Days of the week:", days)
+
+    for d := range days {
+        fmt.Println(days[d])
+    }
+
+    for _, day := range days {
+        fmt.Printf("Index is _ and value is: %v\n", day)
+    }
+
+    rogueValue := 1
+    for rogueValue < 10 {
+        if rogueValue == 5 {
+            rogueValue++
+            continue
+        }
+        fmt.Println("Value is: ", rogueValue)
+        rogueValue++
+    }
+}
+```
+</CodeBlock>
+
+<Callout type="best-practice">
+Use `range` for iterating over slices, maps, and arrays. Use `continue` or `break` for control flow.
+</Callout>
+
+### Functions and Variadic Parameters
+
+<CodeBlock language="go">
+```go
+// 14func/main.go
+package main
+
+func main() {
+    result := adder(1, 2, 3, 4, 5)
+    println("The sum is:", result)
+}
+
+func adder(val ...int) int {
+    ans := 0
+    for _, v := range val {
+        ans += v
+    }
+    return ans
+}
+```
+</CodeBlock>
+
+**Learning**: Variadic parameters (`...`) allow flexible argument counts. Use `println` for simple output within `main`.
+
+### Defer
+
+The `defer` keyword delays function execution until the surrounding function returns.
+
+<CodeBlock language="go">
+```go
+// 15defer/main.go
+package main
+import "fmt"
+
+func main() {
+    defer fmt.Println("Goodbye")
+    defer fmt.Println("World")
+    fmt.Println("Hello")
+    defer fmt.Println("from")
+    defer fmt.Println("Go")
+}
+```
+</CodeBlock>
+
+<Callout type="tip">
+Deferred calls execute in LIFO (last-in, first-out) order. Use for cleanup tasks like closing files.
+</Callout>
+
+## File Operations
+
+Handle file reading and writing with the `os` and `io` packages.
+
+<CodeBlock language="go">
+```go
+// 16files/main.go
+package main
+import (
+    "fmt"
+    "io"
+    "os"
+)
+
+func main() {
+    fmt.Println("File operations in Go")
+    content := "This is a sample content for the file."
+
+    file, err := os.Create("./my-first-go-file.txt")
+    checkError(err)
+
+    length, err := io.WriteString(file, content)
+    checkError(err)
+
+    fmt.Printf("Length of written content: %d bytes\n", length)
+    defer file.Close()
+    readFile("./my-first-go-file.txt")
+}
+
+func readFile(filename string) {
+    databyte, err := os.ReadFile(filename)
+    checkError(err)
+    fmt.Println("File content: \n", string(databyte))
+}
+
+func checkError(err error) {
+    if err != nil {
+        panic(err)
+    }
+}
+```
+</CodeBlock>
+
+<Callout type="best-practice">
+Use `defer` to ensure resources like files are closed. Centralize error handling with a utility function.
+</Callout>
+
+## HTTP Requests and APIs
+
+### GET Requests
+
+Make HTTP GET requests using the `net/http` package.
+
+<CodeBlock language="go">
+```go
+// 18get/main.go
+package main
+import (
+    "fmt"
+    "io"
+    "net/http"
+)
+
+func main() {
+    getReq()
+}
+
+func getReq() {
+    const myUrl = "https://youtube.com"
+
+    res, err := http.Get(myUrl)
+    if err != nil {
+        panic(err)
+    }
+    defer res.Body.Close()
+
+    fmt.Println("Status Code:", res.StatusCode)
+
+    content, _ := io.ReadAll(res.Body)
+    fmt.Println("Response Length:", len(content))
+}
+```
+</CodeBlock>
+
+### POST Requests
+
+Send JSON and form data with POST requests.
+
+<CodeBlock language="go">
+```go
+// 19post/main.go
+package main
+import (
+    "fmt"
+    "io"
+    "net/http"
+    "strings"
+)
+
+func main() {
+    postReq()
+    fmt.Println("Post request completed")
+}
+
+func postReq() {
+    const myUrl = "http://localhost:8000/post"
+
+    reqBody := strings.NewReader(`
+        {
+        "courseName": "Golang",
+        "price": 0,
+        "platform": "Coursera"}
+    `)
+    res, err := http.Post(myUrl, "application/json", reqBody)
+    if err != nil {
+        panic(err)
+    }
+    defer res.Body.Close()
+
+    content, _ := io.ReadAll(res.Body)
+    fmt.Println("Response from server:", string(content))
+    fmt.Println("Status Code:", res.StatusCode)
+}
+```
+</CodeBlock>
+
+<CodeBlock language="go">
+```go
+// 20perform-post/main.go
+package main
+import (
+    "fmt"
+    "io"
+    "net/http"
+    "net/url"
+)
+
+func main() {
+    performPost()
+    fmt.Println("Post request completed successfully!")
+}
+
+func performPost() {
+    const myUrl = "http://localhost:8000/post-form"
+
+    data := url.Values{}
+    data.Add("name", "Anas Khan")
+    data.Add("age", "25")
+    data.Add("city", "Kanpur")
+    res, err := http.PostForm(myUrl, data)
+    if err != nil {
+        panic(err)
+    }
+    defer res.Body.Close()
+
+    content, _ := io.ReadAll(res.Body)
+    fmt.Println("Response from server:", string(content))
+    fmt.Println("Status Code:", res.StatusCode)
+}
+```
+</CodeBlock>
+
+<Callout type="tip">
+Use `strings.NewReader` for JSON payloads and `url.Values` for form data. Always defer `res.Body.Close()` to prevent resource leaks.
+</Callout>
+
+### Building a REST API
+
+Create a REST API using the `gorilla/mux` router.
+
+<CodeBlock language="go">
+```go
+// 23buildapi/main.go
+package main
+import (
+    "encoding/json"
+    "fmt"
+    "log"
+    "math/rand"
+    "net/http"
+    "strconv"
+    "time"
+    "github.com/gorilla/mux"
+)
+
+type Course struct {
+    CourseId    string  `json:"courseid"`
+    CourseName  string  `json:"coursename"`
+    CoursePrice int     `json:"price"`
+    Auther      *Auther `json:"auther"`
+}
+
+type Auther struct {
+    Fullname string `json:"fullname"`
+    Website  string `json:"website"`
+}
+
+var courses []Course
+
+func (c *Course) IsEmpty() bool {
+    return c.CourseName == ""
+}
+
+func main() {
+    fmt.Println("Course API - Build Custom API with Golang")
+    r := mux.NewRouter()
+    courses = append(courses, Course{
+        CourseId:    "1",
+        CourseName:  "ReactJS Bootcamp",
+        CoursePrice: 299,
+        Auther:      &Auther{Fullname: "John Doe", Website: "johndoe.com"},
+    })
+    // Additional seeding omitted for brevity
+    r.HandleFunc("/", serveHome).Methods("GET")
+    r.HandleFunc("/courses", getAllCourses).Methods("GET")
+    r.HandleFunc("/courses/{id}", getOneCourse).Methods("GET")
+    r.HandleFunc("/courses", createCourse).Methods("POST")
+    r.HandleFunc("/courses/{id}", updateOneCourse).Methods("PUT")
+    r.HandleFunc("/courses/{id}", deleteOneCourse).Methods("DELETE")
+    r.HandleFunc("/courses", deleteAllCourses).Methods("DELETE")
+    log.Fatal(http.ListenAndServe(":8080", r))
+}
+
+func serveHome(w http.ResponseWriter, r *http.Request) {
+    w.Write([]byte("<h1>Welcome to the Course API</h1>"))
+}
+
+func getAllCourses(w http.ResponseWriter, r *http.Request) {
+    w.Header().Set("Content-Type", "application/json")
+    json.NewEncoder(w).Encode(courses)
+}
+
+// Additional handler functions omitted for brevity
+```
+</CodeBlock>
+
+<Callout type="best-practice">
+Use `gorilla/mux` for flexible routing. Validate input data and set appropriate content types.
+</Callout>
+
+### Netflix API with MongoDB
+
+Build a MongoDB-backed API for a Netflix watchlist.
+
+<CodeBlock language="go">
+```go
+// 24Netflix/main.go
+package main
+import (
+    "fmt"
+    "log"
+    "net/http"
+    "github.com/ANAS727189/Netflix-Api/routers"
+)
+
+func main() {
+    r := routers.Router()
+    fmt.Println("Server is getting started...")
+    log.Fatal(http.ListenAndServe(":4040", r))
+    fmt.Println("Server is running on port 4040")
+}
+```
+</CodeBlock>
+
+<CodeBlock language="go">
+```go
+// 24Netflix/models/netflix.models.go
+package models
+import (
+    "go.mongodb.org/mongo-driver/bson/primitive"
+)
+
+type Netflix struct {
+    ID      primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`
+    Movie   string             `json:"movie,omitempty"`
+    Watched bool               `json:"watched,omitempty"`
+}
+```
+</CodeBlock>
+
+<CodeBlock language="go">
+```go
+// 24Netflix/routers/netflix.routers.go
+package routers
+import (
+    "github.com/ANAS727189/Netflix-Api/controllers"
+    "github.com/gorilla/mux"
+)
+
+func Router() *mux.Router {
+    router := mux.NewRouter()
+    router.HandleFunc("/api/movies", controllers.GetAllMovies).Methods("GET")
+    router.HandleFunc("/api/movie", controllers.CreateMovie).Methods("POST")
+    router.HandleFunc("/api/movie/{id}", controllers.MarkAsWatched).Methods("PUT")
+    router.HandleFunc("/api/movie/{id}", controllers.DeleteOneMovie).Methods("DELETE")
+    router.HandleFunc("/api/delete-movies", controllers.DeleteAllMovies).Methods("DELETE")
+    return router
+}
+```
+</CodeBlock>
+
+<CodeBlock language="go">
+```go
+// 24Netflix/controllers/mongo.controller.go
+package controllers
+import (
+    "context"
+    "encoding/json"
+    "fmt"
+    "log"
+    "net/http"
+    "os"
+    "github.com/joho/godotenv"
+    "go.mongodb.org/mongo-driver/bson"
+    "go.mongodb.org/mongo-driver/mongo"
+    "go.mongodb.org/mongo-driver/mongo/options"
+)
+
+var collection *mongo.Collection
+
+func init() {
+    err := godotenv.Load()
+    if err != nil {
+        log.Println("Warning: Error loading .env file")
+    }
+    connectionString := os.Getenv("MONGODB_URI")
+    if connectionString == "" {
+        connectionString = "mongodb://localhost:27017"
+    }
+    clientOption := options.Client().ApplyURI(connectionString)
+    client, err := mongo.Connect(context.TODO(), clientOption)
+    if err != nil {
+        log.Fatal("Error connecting to MongoDB:", err)
+    }
+    collection = client.Database("netflix").Collection("watchList")
+}
+
+func GetAllMovies(w http.ResponseWriter, r *http.Request) {
+    w.Header().Set("Content-Type", "application/json")
+    movies := getAllMovies()
+    if len(movies) == 0 {
+        http.Error(w, "No movies found", http.StatusNotFound)
+        return
+    }
+    json.NewEncoder(w).Encode(movies)
+}
+
+// Additional controller functions omitted for brevity
+```
+</CodeBlock>
+
+<Callout type="tip">
+Use `godotenv` for environment variables and `bson` for MongoDB queries. Ensure proper error handling for database operations.
+</Callout>
+
+## Concurrency in Go
+
+### Concurrency vs Parallelism
+
+- **Concurrency**: Handling multiple tasks, but not necessarily at the same time.
+- **Parallelism**: Executing multiple tasks simultaneously.
+
+![Concurrency vs Parallelism](/concurrencyvsparallel.png)
+
+**Example (Instagram analogy)**:  
+Suppose you are eating rice and watching Instagram reels. Suddenly, you get a notification, and you also want to turn on the A.C.
+
+- **Concurrency**: You check the notification, then turn on the A.C., and finally continue eating rice. Tasks are interleaved.
+- **Parallelism**: You simultaneously eat rice, check the notification, and turn on the A.C.
+
+<Callout type="info">
+Go achieves concurrency (and parallelism with multiple CPU cores) using goroutines, which are lightweight threads managed by the Go runtime.
+</Callout>
+
+### Goroutines
+
+Goroutines are lightweight threads managed by the Go runtime, with a flexible stack (~2KB) compared to OS threads (~1MB).
+
+<CodeBlock language="go">
+```go
+// 26go-routines/main.go
+package main
+import (
+    "fmt"
+    "net/http"
+    "sync"
+)
+
+var wg sync.WaitGroup
+var mut sync.Mutex
+var signals []string
+
+func main() {
+    wg.Add(2)
+    go greeter("Hello")
+    greeter("World")
+    websiteList := []string{
+        "https://lco.dev",
+        "http://google.com",
+        "https://go.dev",
+        "https://fb.com",
+        "https://github.com",
+    }
+    for _, website := range websiteList {
+        go getStatusCode(website)
+        wg.Add(1)
+    }
+    wg.Wait()
+    fmt.Println(signals)
+}
+
+func greeter(s string) {
+    defer wg.Done()
+    for i := 0; i < 6; i++ {
+        fmt.Println(s)
+    }
+}
+
+func getStatusCode(endpoint string) {
+    defer wg.Done()
+    res, err := http.Get(endpoint)
+    if err != nil {
+        fmt.Println("Error:", err)
+        return
+    }
+    mut.Lock()
+    signals = append(signals, endpoint)
+    mut.Unlock()
+    fmt.Printf("%d Status Code for %s:\n", res.StatusCode, endpoint)
+}
+```
+</CodeBlock>
+
+**Learning**: Use the `go` keyword to spawn goroutines. Combine with `sync.WaitGroup` for synchronization.
+
+### WaitGroups
+
+WaitGroups ensure all goroutines complete before proceeding.
+
+**Key Methods**:
+- `Add(int)`: Increments the counter.
+- `Done()`: Decrements the counter.
+- `Wait()`: Blocks until the counter is zero.
+
+### Mutexes and Race Conditions
+
+Prevent race conditions with `sync.Mutex`.
+
+<CodeBlock language="go">
+```go
+// 27race-condition/main.go
+package main
+import (
+    "fmt"
+    "sync"
+)
+
+func main() {
+    fmt.Println("Race Condition in Golang")
+    var score = []int{0}
+    wg := &sync.WaitGroup{}
+    mut := &sync.Mutex{}
+
+    wg.Add(3)
+    go func(wg *sync.WaitGroup, m *sync.Mutex) {
+        defer wg.Done()
+        m.Lock()
+        fmt.Println("Incrementing score by 1")
+        score = append(score, 1)
+        m.Unlock()
+    }(wg, mut)
+    go func(wg *sync.WaitGroup, m *sync.Mutex) {
+        defer wg.Done()
+        m.Lock()
+        fmt.Println("Incrementing score by 2")
+        score = append(score, 2)
+        m.Unlock()
+    }(wg, mut)
+    go func(wg *sync.WaitGroup, m *sync.Mutex) {
+        defer wg.Done()
+        m.Lock()
+        fmt.Println("Incrementing score by 3")
+        score = append(score, 3)
+        m.Unlock()
+    }(wg, mut)
+
+    wg.Wait()
+    fmt.Println("Final Score:", score)
+}
+```
+</CodeBlock>
+
+<Callout type="tip">
+Run `go run --race .` to detect race conditions. Use mutexes to protect shared resources.
+</Callout>
+
+### Channels
+
+Channels enable communication between goroutines.
+
+<CodeBlock language="go">
+```go
+// 28channels/main.go
+package main
+import (
+    "fmt"
+    "sync"
+)
+
+func main() {
+    fmt.Println("Channels in golang")
+    mych := make(chan int, 2)
+    wg := &sync.WaitGroup{}
+
+    wg.Add(2)
+    go func(ch chan<- int, wg *sync.WaitGroup) {
+        defer wg.Done()
+        mych <- 5
+        mych <- 10
+        mych <- 15
+        close(ch)
+    }(mych, wg)
+    go func(ch <-chan int, wg *sync.WaitGroup) {
+        defer wg.Done()
+        fmt.Println("Value received from channel:", <-ch)
+        fmt.Println("Value received from channel:", <-ch)
+        val, isChannelOpen := <-ch
+        if isChannelOpen {
+            fmt.Println("Status: ", isChannelOpen)
+            fmt.Println("Value received from channel:", val)
+        } else {
+            fmt.Println("Status: ", isChannelOpen)
+            fmt.Println("Channel is closed!")
+        }
+    }(mych, wg)
+    wg.Wait()
+}
+```
+</CodeBlock>
+
+<Callout type="best-practice">
+Use buffered channels (`make(chan int, n)`) for non-blocking sends. Close channels with `close(ch)` to signal completion.
+</Callout>
+
+## Generating Random Numbers
+
+Generate secure random numbers with `crypto/rand`.
+
+<CodeBlock language="go">
+```go
+// 29randomnumber/main.go
+package main
+import (
+    "fmt"
+    "math/big"
+    "crypto/rand"
+)
+
+func main() {
+    fmt.Println("Random number in Golang")
+    cryptoRandomNumber, _ := rand.Int(rand.Reader, big.NewInt(7))
+    fmt.Println("Random number:", cryptoRandomNumber)
+}
+```
+</CodeBlock>
+
+<Callout type="tip">
+Use `crypto/rand` for secure random numbers in production, as `math/rand` is less secure.
+</Callout>
+
+## Best Practices and Tips
+
+1. **Error Handling**: Always check errors with `if err != nil`. Use `panic` sparingly for unrecoverable errors.
+2. **Concurrency**: Leverage goroutines and channels for scalable concurrency. Use mutexes to avoid race conditions.
+3. **Modules**: Use `go.mod` for dependency management. Run `go mod tidy` to clean up unused dependencies.
+4. **Code Organization**: Structure projects with clear directories (e.g., `controllers`, `models`, `routers`).
+5. **Testing**: Write tests using the `testing` package. Run with `go test`.
+6. **Formatting**: Use `go fmt` to standardize code style.
+7. **Profiling**: Use `pprof` for performance analysis in production apps.
+
+## Conclusion
+
+This comprehensive guide has explored Go’s core concepts, from variables and control flow to advanced concurrency and API development. By mastering these techniques, you can build efficient, scalable applications. Experiment with the provided examples, explore the [Go documentation](https://go.dev/doc/), and build projects like APIs or microservices to solidify your skills.

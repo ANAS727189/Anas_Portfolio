@@ -1,0 +1,27 @@
+{
+    "name": "Anas - Engineer",
+    "short_name": "Anas",
+    "theme_color": "#00ff00",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "orientation": "any",
+    "scope": "/",
+    "start_url": "/",
+    "icons": [
+      {
+        "src": "/Anas-192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      },
+      {
+        "src": "/Anas-256.jpg",
+        "type": "image/jpg",
+        "sizes": "256x256"
+      },
+      {
+        "src": "/Anas-512.jpg",
+        "type": "image/jpg",
+        "sizes": "512x512"
+      }
+    ]
+  }

@@ -2,8 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
+@font-face {
+  font-family: 'Hanken Grotesk';
+  src: url('/fonts/HankenGrotesk-Variable.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Hanken Grotesk Italic';
+  src: url('/fonts/HankenGrotesk-Italic-Variable.ttf') format('truetype');
+}
+
+.font-hanken-grotesk {
+  font-family: 'Hanken Grotesk', sans-serif;
+}
+
+.font-hanken-grotesk-italic {
+  font-family: 'Hanken Grotesk Italic', sans-serif;
 }
 
 @layer base {
