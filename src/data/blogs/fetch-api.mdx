@@ -123,20 +123,7 @@ An **API call** in React involves sending a request from the client (your app) t
 
 ### Comparison Table
 
-:----------------- |:------------------------|:--------------------------|:------------------------:
-| Feature          | SOAP                    | REST                      | GraphQL                 |
-|:-----------------|:------------------------|:--------------------------|:------------------------|
-| Type             | Protocol                | Architectural style       | Query language          |
-| Transport        | HTTP, SMTP, TCP         | HTTP                      | HTTP (usually)          |
-| Message Format   | XML                     | JSON, XML, HTML           | JSON                    |
-| Structure        | WSDL                    | Resource-based            | Schema-based            |
-| Statefulness     | Stateful or Stateless   | Stateless                 | Stateless               |
-| Security         | Built-in (WS-Security)  | HTTPS, OAuth              | No built-in security    |
-| Complexity       | High                    | Medium                    | High                    |
-| Performance      | Heavy (XML)             | Lightweight               | Efficient but complex   |
-| Caching          | Complex                 | Simple (HTTP)             | Difficult               |
-| Use Cases        | Enterprise apps         | Web, microservices        | Data-heavy apps         |
-:----------------- |:------------------------|:--------------------------|:------------------------:
+<img src="/doff=comparison.webp" alt="Comparison Table"/>
 
 <Callout type="info">
   Choose REST for most web and mobile apps due to its simplicity and scalability. Use GraphQL for complex data needs and SOAP for enterprise-grade security requirements.
