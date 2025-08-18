@@ -47,8 +47,8 @@ const Hero = () => {
         </React.Fragment>
         ))}
 
-        . With a focus on <span className="dark:text-white text-black font-bold">UI</span> design. Enthusiastic,
-        driven by a keen eye for design.
+        . With a focus on <span className="dark:text-white text-black font-bold">UI/UX</span>.
+         Web apps? I build them for fun, curiosity, and a little bit of mischief.
       </p>
 
       {/* Buttons */}

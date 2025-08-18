@@ -31,5 +31,5 @@ export const techIcons: Record<string, JSX.Element> = {
 
 export const about = {
   name: 'Anas',
-  description: `I'm a Full Stack web developer and Open Source Contributor, I love building products to solve real-world problems. I'm specialized in building MVP's.`,
+  description: `I'm a Full Stack web developer and Open Source Contributor, I love solving real-world problems by building scalable and efficient web applications. I'm specialized in building MVP's.`,
 };
