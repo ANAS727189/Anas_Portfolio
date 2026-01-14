@@ -1,6 +1,13 @@
 import createMDX from '@next/mdx';
 import type { NextConfig } from 'next';
-import withPWA from 'next-pwa';
+import withPWAInit from 'next-pwa';
+
+const withPWA = withPWAInit({
+  dest: "public",
+  disable: process.env.NODE_ENV === "development",
+  register: true,
+  skipWaiting: true,
+});
 
 const nextConfig: NextConfig = {
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
@@ -16,18 +23,7 @@ const nextConfig: NextConfig = {
   },
 };
 
-const withMDX = createMDX({
-  options: {
-    remarkPlugins: [],
-    rehypePlugins: [require('rehype-slug')],
-  },
-});
 
-const withPWAMDX = withPWA({
-  dest: "public",
-  disable: process.env.NODE_ENV === "development",
-  register: true,
-  skipWaiting: true,
-});
+const withMDX = createMDX({});
 
-export default withMDX(withPWAMDX(nextConfig));
+export default withPWA(withMDX(nextConfig));

@@ -26,7 +26,7 @@ const Hero = () => {
 
       {/* Headline */}
       <h1 className="text-5xl font-bold">
-        Hi, I'm Anas — <span className="text-gray-400">A Full Stack web developer.</span>
+        Hi, I'm Anas ~ <span className="text-gray-400">A Full Stack web developer.</span>
       </h1>
 
       {/* Description */}

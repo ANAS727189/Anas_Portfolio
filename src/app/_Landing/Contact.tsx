@@ -97,7 +97,7 @@ const Contact = () => {
               <div className="space-y-4">
                 <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400">
                   <Mail className="h-5 w-5" />
-                  <span>your.email@example.com</span>
+                  <span>anas23khan083@gmail.com</span>
                 </div>
                 <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400">
                   <Phone className="h-5 w-5" />
@@ -179,7 +179,7 @@ const Contact = () => {
                       required
                       value={formData.email}
                       onChange={handleInputChange}
-                      placeholder="your.email@example.com"
+                      placeholder="Your email"
                       className="w-full bg-gray-50 dark:bg-gray-800 border-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 rounded-lg"
                     />
                   </div>
