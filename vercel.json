@@ -2,6 +2,12 @@
   "redirects": [
     {
       "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "anas-khan.tech"
+        }
+      ],
       "destination": "https://anas-khan.vercel.app/$1",
       "permanent": true
     }
