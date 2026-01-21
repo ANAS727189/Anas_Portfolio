@@ -1,0 +1,9 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Disallow admin or private paths if any
+# Disallow: /admin
+
+# Sitemap
+Sitemap: https://anas-khan.is-a.dev/sitemap.xml

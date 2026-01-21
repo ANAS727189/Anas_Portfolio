@@ -5,7 +5,8 @@ import Script from "next/script";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Toaster } from "@/components/ui/sonner"
+import { Toaster } from "@/components/ui/sonner";
+import { generatePersonSchema, generateWebSiteSchema } from "@/lib/structured-data";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,9 +32,24 @@ export const generateViewport = (): Viewport => ({
 });
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const personSchema = generatePersonSchema();
+  const websiteSchema = generateWebSiteSchema();
+
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="font-hanken-grotesk antialiased min-h-screen bg-white text-black dark:bg-black dark:text-white">
+      <head>
+        <Script
+          id="structured-data-person"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        />
+        <Script
+          id="structured-data-website"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+        />
+      </head>
+      <body className={`font-hanken-grotesk antialiased min-h-screen bg-white text-black dark:bg-black dark:text-white ${geistSans.variable} ${geistMono.variable}`}>
         <Script
           data-goatcounter="https://anas.goatcounter.com/count"
           async
