@@ -1,0 +1,31 @@
+/* TEAM */
+Developer & Designer: Anas Khan
+Site: https://anas-khan.is-a.dev
+Location: Dharwad, Karnataka, India
+Email: anas23khan083@gmail.com
+Phone: +919794354555
+
+/* SITE */
+Last update: 2026/01/22
+Standards: HTML5, CSS3, JavaScript ES6+
+Components: React, Next.js, TypeScript, Tailwind CSS
+Software: VS Code, Figma, Git
+Language: English
+
+/* THANKS */
+Indian Institute of Information Technology, Dharwad
+Open Source Community (LFortran, SymPy)
+Hackathon Organizers (IIT Dharwad, ViMEET, BITS Pilani)
+
+/* SOCIAL */
+LinkedIn: https://linkedin.com/in/anas-khan83
+GitHub: https://github.com/ANAS727189
+Twitter: https://twitter.com/Anas_is_me
+LeetCode: https://leetcode.com/u/Anas_Khan83/
+Codeforces: https://codeforces.com/profile/coderX083
+
+/* KEYWORDS */
+Anas Khan, Full Stack Developer, UI/UX Designer, IIIT Dharwad, React Developer, 
+Node.js Developer, Solidity Developer, Rust Developer, Web3 Developer, 
+Blockchain Developer, Hackathon Winner, Open Source Contributor, Codeforces Expert,
+JavaScript, TypeScript, Python, C++, Docker, Kubernetes, AWS, PostgreSQL, MongoDB

@@ -38,6 +38,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <link rel="author" href="/humans.txt" />
+        <meta name="author" content="Anas Khan" />
+        <meta name="copyright" content="Anas Khan" />
         <Script
           id="structured-data-person"
           type="application/ld+json"
