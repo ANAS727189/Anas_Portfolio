@@ -10,7 +10,6 @@ B.Tech Computer Science student specializing in full-stack development, Web3, bl
 
 ## 📧 Contact
 - **Email**: anas23khan083@gmail.com
-- **Phone**: +919794354555
 - **LinkedIn**: [linkedin.com/in/anas-khan83](https://linkedin.com/in/anas-khan83)
 - **GitHub**: [github.com/ANAS727189](https://github.com/ANAS727189)
 - **Twitter**: [@Anas_is_me](https://twitter.com/Anas_is_me)
