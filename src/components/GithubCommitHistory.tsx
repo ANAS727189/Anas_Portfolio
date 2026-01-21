@@ -235,7 +235,7 @@ const GitHubCommitHistory: React.FC = () => {
   ];
 
   return (
-    <div className="rounded-2xl p-[1px] bg-gray-200 dark:bg-[#171717] mb-8">
+    <div className="rounded-2xl p-[1px] bg-gray-200 dark:bg-[#171717] mb-8 mt-12">
       <div className="bg-white dark:bg-[#111] rounded-2xl p-8 shadow-md dark:shadow-none">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">

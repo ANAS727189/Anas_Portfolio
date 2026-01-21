@@ -80,12 +80,31 @@ const LeetcodePage: React.FC = () => {
         };
 
         const [leetcodeRes, reposRes] = await Promise.all([
-          fetch("https://leetcode-stats-api.herokuapp.com/Anas_Khan83"),
+          fetch("https://alfa-leetcode-api.onrender.com/userProfile/Anas_Khan83"),
           fetch("https://api.github.com/users/ANAS727189/repos?per_page=100", { headers }),
         ]);
 
-        const leetcodeData = await leetcodeRes.json();
+        const leetcodeRawData = await leetcodeRes.json();
         const reposData = await reposRes.json();
+
+        console.log('LeetCode Raw Data:', leetcodeRawData); // Debug log
+
+        // Map the API response to our interface
+        const leetcodeData: LeetcodeUser = {
+          easySolved: leetcodeRawData.easySolved || 0,
+          mediumSolved: leetcodeRawData.mediumSolved || 0,
+          hardSolved: leetcodeRawData.hardSolved || 0,
+          totalSolved: leetcodeRawData.totalSolved || 0,
+          totalSubmissions: leetcodeRawData.totalSubmissions?.[0]?.submissions || 0,
+          ranking: leetcodeRawData.ranking || 0,
+          reputation: leetcodeRawData.reputation || 0,
+          contributionPoints: leetcodeRawData.contributionPoint || 0,
+          acceptanceRate: leetcodeRawData.matchedUserStats?.acSubmissionNum?.[0]?.submissions 
+            ? ((leetcodeRawData.matchedUserStats.acSubmissionNum[0].submissions / leetcodeRawData.matchedUserStats.totalSubmissionNum[0].submissions) * 100).toFixed(1) + '%'
+            : '0%',
+        };
+
+        console.log('Processed LeetCode Data:', leetcodeData); // Debug log
 
         const processedData = {
           leetcodeData,
@@ -180,22 +199,30 @@ const LeetcodePage: React.FC = () => {
             </div>
             <div className="text-center">
               <Target className="w-6 h-6 text-green-500 mx-auto mb-2" />
-              <div className="text-xl font-bold text-gray-900 dark:text-white">#{leetcodeData?.ranking || 0}</div>
+              <div className="text-xl font-bold text-gray-900 dark:text-white">
+                {leetcodeData?.ranking ? `#${leetcodeData.ranking.toLocaleString()}` : 'Loading...'}
+              </div>
               <div className="text-sm text-gray-500 dark:text-gray-400">LC Ranking</div>
             </div>
             <div className="text-center">
               <Award className="w-6 h-6 text-purple-500 mx-auto mb-2" />
-              <div className="text-xl font-bold text-gray-900 dark:text-white">{leetcodeData?.acceptanceRate}</div>
+              <div className="text-xl font-bold text-gray-900 dark:text-white">
+                {leetcodeData?.acceptanceRate || 'Loading...'}
+              </div>
               <div className="text-sm text-gray-500 dark:text-gray-400">Success Rate</div>
             </div>
             <div className="text-center">
               <Trophy className="w-6 h-6 text-orange-500 mx-auto mb-2" />
-              <div className="text-xl font-bold text-gray-900 dark:text-white">{leetcodeData?.contributionPoints || 0}</div>
+              <div className="text-xl font-bold text-gray-900 dark:text-white">
+                {leetcodeData?.contributionPoints ? leetcodeData.contributionPoints.toLocaleString() : 'Loading...'}
+              </div>
               <div className="text-sm text-gray-500 dark:text-gray-400">Contribution</div>
             </div>
             <div className="text-center">
               <Users className="w-6 h-6 text-indigo-500 mx-auto mb-2" />
-              <div className="text-xl font-bold text-gray-900 dark:text-white">{leetcodeData?.reputation || 0}</div>
+              <div className="text-xl font-bold text-gray-900 dark:text-white">
+                {leetcodeData?.reputation || 'Loading...'}
+              </div>
               <div className="text-sm text-gray-500 dark:text-gray-400">Reputation</div>
             </div>
           </div>
