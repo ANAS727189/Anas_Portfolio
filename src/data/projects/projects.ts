@@ -1,4 +1,156 @@
-export const projectsData = [
+export interface ProjectData {
+  id?: string
+  title: string
+  image?: string
+  description: string
+  features: string[]
+  technologies: string[]
+  liveLink?: string
+  githubLink?: string
+  weeklyRank?: 1 | 2 | 3
+  weeklyTrend?: 'up' | 'down' | 'steady' | 'new'
+  weeklyDelta?: number
+}
+
+export const projectsData: ProjectData[] = [
+  {
+    title: 'SangamAI',
+    image: '/sangam-ai.jpeg',
+    description:
+      'A production-grade RAG platform that turns PDFs, YouTube videos, and CSV files into interactive conversational knowledge bases.',
+    features: [
+      'Multi-modal ingestion for PDF, YouTube transcript, and CSV datasets',
+      'FastAPI + Next.js architecture with persistent user chat history',
+      'FAISS-powered retrieval with context-aware answer generation',
+      'Terminal-inspired UI pipeline and split-view document chatting',
+    ],
+    technologies: ['Next.js', 'FastAPI', 'Python', 'LangChain', 'FAISS', 'Firebase'],
+    githubLink: 'https://github.com/ANAS727189/SangamAI',
+    weeklyRank: 1,
+    weeklyTrend: 'up',
+    weeklyDelta: 2,
+  },
+  {
+    title: 'Trunk',
+    image: '/Trunk.jpeg',
+    description:
+      'A functional implementation of the Git core protocol in Go, compatible with real .git structures and object workflows.',
+    features: [
+      'Implements content-addressable object storage with SHA-1 + zlib compression',
+      'Supports blob, tree, commit, and reference internals',
+      'Provides manual plumbing commands and automated commit lifecycle',
+      'Demonstrates Merkle tree and DAG-based version history mechanics',
+    ],
+    technologies: ['Go', 'Git internals', 'SHA-1', 'Zlib', 'CLI'],
+    githubLink: 'https://github.com/ANAS727189/Trunk',
+    weeklyRank: 2,
+    weeklyTrend: 'down',
+    weeklyDelta: 1,
+  },
+  {
+    title: 'SolThrone',
+    image: '/solthrone.png',
+    description:
+      'A Solana-based King-of-the-Hill game where players outbid each other to hold the throne and win the jackpot.',
+    features: [
+      'On-chain gameplay with anti-snipe timer extensions',
+      'Instant ROI payouts for dethroned monarchs',
+      'Anchor smart contract for secure game-state management',
+      'Realtime gameplay dashboard with wallet integration',
+    ],
+    technologies: ['Next.js', 'TypeScript', 'Solana', 'Anchor', 'Rust', 'Tailwind CSS'],
+    liveLink: 'https://who-wants-to-be-a-king.vercel.app/',
+    githubLink: 'https://github.com/ANAS727189/SolThrone',
+    weeklyRank: 3,
+    weeklyTrend: 'new',
+  },
+  {
+    title: 'Pixel UI - 8-Bit Component Library',
+    image: '/pixel-art.png',
+    description:
+      'A retro-styled UI component library and docs platform with pixel-perfect design system, demos, and accessibility-focused components.',
+    features: [
+      'Large set of pixel-style UI components with interactive examples',
+      'Docs site with live previews, usage guides, and props tables',
+      'Redux-powered demo experiences with real filtering and search',
+      'Next.js + TypeScript architecture with modern tooling',
+    ],
+    technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Radix UI', 'Redux', 'Biome'],
+    liveLink: 'https://pixel8-ui.vercel.app/',
+    githubLink: 'https://github.com/Team-Parashuram/Pixel-art-8-bit',
+  },
+  {
+    title: 'BountyStack',
+    image: '/bounty-stack.png',
+    description:
+      'A Web3-native Q&A platform on Solana where users attach bounties to questions and experts compete to earn rewards through trustless escrow.',
+    features: [
+      'Trustless escrow for SOL bounties using Solana Program Derived Addresses',
+      'Automated bounty settlement with atomic on-chain transactions',
+      'Wallet-integrated Q&A marketplace with transparent incentives',
+      'Full-stack architecture with Next.js, Express, MongoDB, and Anchor programs',
+    ],
+    technologies: ['Next.js', 'TypeScript', 'Node.js', 'Express.js', 'MongoDB', 'Solana', 'Rust'],
+    liveLink: 'https://bounty-stack.vercel.app/',
+    githubLink: 'https://github.com/ANAS727189/Bounty-Stack',
+  },
+  {
+    title: 'Heisenberg Protocol',
+    image: '/heisenberg.png',
+    description:
+      'An autonomous cyber-resilience and self-healing platform that injects chaos, detects vulnerabilities, and opens fix pull requests with orchestration workflows.',
+    features: [
+      'Automated chaos testing with k6 in isolated Docker environments',
+      'Closed-loop detect and remediate workflow with generated code fixes',
+      'Command center dashboard for real-time threat and traffic monitoring',
+      'Kestra-orchestrated security pipeline with AI-assisted remediation',
+    ],
+    technologies: ['Next.js', 'React.js', 'Tailwind CSS', 'Python', 'Docker', 'Kestra', 'Grafana'],
+    githubLink: 'https://github.com/ANAS727189/Heisenberg',
+  },
+  {
+    title: 'Bolt - Asteroids Game',
+    image: '/asteroid-game.png',
+    description:
+      'A lightning-fast arcade space shooter with unlockable weapon progression, dynamic effects, and smooth 60 FPS gameplay built with Python and Pygame.',
+    features: [
+      'Five unlockable weapons with different firing patterns and mechanics',
+      'Dynamic starfield and explosion effects for immersive gameplay',
+      'Progressive difficulty with score-based unlock milestones',
+      'Cross-platform packaging with PyInstaller and automated release builds',
+    ],
+    technologies: ['Python', 'Pygame', 'PyInstaller', 'GitHub Actions'],
+    githubLink: 'https://github.com/ANAS727189/Asteroids-Game',
+  },
+  {
+    title: 'TreasureHunt',
+    image: '/treasure-hunt.png',
+    description:
+      'A gamified hiring challenge website designed as a puzzle-based talent hunt with one winning path and multiple decoy routes.',
+    features: [
+      'Puzzle-driven progression with multiple fail states and one winning route',
+      'Security-focused route and path validation improvements',
+      'High-traffic capable setup used during live challenge campaigns',
+      'Interactive experience engineered for engagement and curiosity',
+    ],
+    technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Vercel'],
+    liveLink: 'https://kya-tumhe-naukri-milegi-i-dont-think-so.vercel.app/',
+    githubLink: 'https://github.com/ANAS727189/TreasureHunt',
+  },
+  {
+    title: 'Z-Arena',
+    image: '/z-arena.png',
+    description:
+      'A full-stack competitive programming platform supporting Z-- and popular languages, with battles, streaks, and leaderboard-driven gameplay.',
+    features: [
+      'Custom Z-- compiler integration with Judge0 multi-language execution',
+      'Competitive modes including war battles, streaks, and achievements',
+      'Challenge system with extensible schema-validated JSON problem sets',
+      'Cloud-ready architecture with Appwrite, Dockerized backend, and CI workflows',
+    ],
+    technologies: ['React.js', 'TypeScript', 'Node.js', 'Tailwind CSS', 'Docker', 'Appwrite'],
+    githubLink: 'https://github.com/ANAS727189/Z-Arena',
+  },
   {
     "title": "Z-Studio",
     "image": "/z-studio.png",

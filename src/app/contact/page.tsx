@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
+import BackButton from '@/components/BackButton'
 import { Send, Mail, Phone, MessageSquare, User } from 'lucide-react'
 
 
@@ -42,6 +43,8 @@ const Contact = () => {
   return (
     <section className="bg-white dark:bg-black text-gray-900 dark:text-white py-16">
       <div className="max-w-4xl mx-auto px-4">
+        <BackButton className="mb-6" />
+
         {/* Header */}
         <div className="text-center mb-12">
           <p className="text-lg text-blue-500 dark:text-blue-400 font-semibold mb-2">

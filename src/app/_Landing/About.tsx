@@ -47,8 +47,10 @@ const About = () => {
         <div className="flex flex-col justify-center text-center sm:text-left">
           <h3 className="text-2xl sm:text-3xl font-bold">Anas</h3>
           <p className="max-w-xl text-sm sm:text-md opacity-80 mt-2">
-            I'm a Full Stack web developer and Open Source Contributor. I love building products to solve
-            real-world problems. I'm specialized in building MVP's.
+            I&apos;m a software engineer and open source contributor focused on shipping reliable products fast.
+            I work across full-stack systems (frontend + backend), with strong problem-solving from competitive programming.
+            Recent highlights include 3x hackathon wins, ICPC Asia West Kanpur Regional Rank 93, and contributions to
+            LFortran, SymPy, Go tools, and Learning Equality Studio.
           </p>
 
           {/* Skills */}

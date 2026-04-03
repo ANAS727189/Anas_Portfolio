@@ -10,6 +10,7 @@ import { generateBlogPostingSchema } from '@/lib/structured-data';
 import { siteConfig } from '@/config/Meta';
 import Script from 'next/script';
 import { Metadata } from 'next';
+import BackButton from '@/components/BackButton';
 
 interface BlogPostProps {
   params: Promise<{ slug: string }>;
@@ -103,6 +104,7 @@ export default async function BlogPost({ params }: BlogPostProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
       />
       <section className="max-w-4xl mx-auto px-4 py-10 bg-white dark:bg-black text-gray-900 dark:text-white">
+        <BackButton href="/blogs" label="Back to blogs" className="mb-6" />
         <ClientBlogPost blog={{ ...blog, content }} />
       </section>
     </>

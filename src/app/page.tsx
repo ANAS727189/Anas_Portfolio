@@ -1,6 +1,7 @@
 import Hero from "./_Landing/Hero";
 import Experience from "./_Landing/Experience";
 import Project from "./_Landing/Project";
+import OpenSource from "./_Landing/OpenSource";
 import Blog from "./_Landing/Blog";
 import About from "./_Landing/About";
 import Profile from "./_Landing/Profile";
@@ -17,6 +18,7 @@ export default function Home() {
      <Hero />
      <Experience />
      <Project />
+    <OpenSource />
      <About />
      <Blog />
      <Profile />

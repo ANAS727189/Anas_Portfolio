@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { experienceData } from '@/data/experience/experience'
 import Image from 'next/image'
 import { Globe } from 'lucide-react'
+import BackButton from '@/components/BackButton'
 import { generateMetadata as getMeta } from "@/config/Meta";
 
 export async function generateMetadata() {
@@ -35,6 +36,8 @@ const techIcons: Record<string, string> = {
 const Page = () => {
   return (
     <div className="max-w-5xl mx-auto px-4 py-10 bg-white dark:bg-black text-gray-900 dark:text-white">
+      <BackButton className="mb-6" />
+
       {/* Main Heading */}
       <div className="text-center mb-8">
         <h1 className="text-5xl font-bold text-gray-900 dark:text-white">Work Experience</h1>

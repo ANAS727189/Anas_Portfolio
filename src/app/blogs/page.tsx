@@ -1,5 +1,6 @@
 import { getAllBlogs } from '@/lib/blogs';
 import ClientBlogs from '@/components/BlogComponent'
+import BackButton from '@/components/BackButton';
 import { generateMetadata as getMeta } from "@/config/Meta";
 
 export async function generateMetadata() {
@@ -11,6 +12,8 @@ export default async function Blogs() {
 
   return (
     <section className="max-w-5xl mx-auto px-4 py-10 bg-white dark:bg-black text-gray-900 dark:text-white">
+      <BackButton className="mb-6" />
+
       <div className="text-center mb-8">
         <h1 className="text-4xl font-bold text-gray-900 dark:text-white">Blog Posts</h1>
         <p className="text-gray-600 dark:text-gray-400 mt-2">
