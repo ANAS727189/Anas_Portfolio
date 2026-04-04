@@ -1,9 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
 
-/* ─────────────────────────────────────────────────────────────
-   Keyframes & animation helper classes (injected once)
-───────────────────────────────────────────────────────────── */
 const STYLES = `
   @keyframes neko-bob {
     0%, 100% { transform: translateY(0px); }
@@ -51,7 +48,6 @@ const STYLES = `
     50%       { transform: translateY(-2px); }
   }
 
-  /* Walking pose */
   .nk-walk .nk-bob  { animation: neko-bob   0.22s ease-in-out infinite; }
   .nk-walk .nk-la   { transform-origin: 0 0; animation: neko-leg-a 0.22s linear infinite; }
   .nk-walk .nk-lb   { transform-origin: 0 0; animation: neko-leg-b 0.22s linear infinite; }
@@ -59,7 +55,6 @@ const STYLES = `
   .nk-walk .nk-pb   { transform-origin: 0 0; animation: neko-paw-b 0.22s linear infinite; }
   .nk-walk .nk-tail { transform-origin: 0 0; animation: neko-tail-walk 0.42s ease-in-out infinite; }
 
-  /* Sitting pose (during peek) */
   .nk-sit .nk-bob   { animation: neko-sit-bob 2s ease-in-out infinite; }
   .nk-sit .nk-la    { transform: rotate(10deg);  transform-origin: 0 0; animation: none; }
   .nk-sit .nk-lb    { transform: rotate(-10deg); transform-origin: 0 0; animation: none; }
@@ -67,19 +62,134 @@ const STYLES = `
   .nk-sit .nk-pb    { transform: rotate(-5deg);  transform-origin: 0 0; animation: none; }
   .nk-sit .nk-tail  { transform-origin: 0 0; animation: neko-tail-sit 1.2s ease-in-out infinite; }
 
-  /* Eyes — always on */
   .nk-el { transform-box: fill-box; transform-origin: center; animation: neko-blink 3.8s ease-in-out infinite; }
   .nk-er { transform-box: fill-box; transform-origin: center; animation: neko-blink 3.8s ease-in-out infinite 0.18s; }
   .nk-ear{ transform-box: fill-box; transform-origin: bottom center; animation: neko-ear 4.2s ease-in-out infinite; }
 `;
 
-/* ─────────────────────────────────────────────────────────────
-   Cat SVG — face at local x ≈ 4–32 (left side of viewBox)
-   Tail at right side (x ≈ 53–68)
-   ViewBox 0 0 76 76 — facing RIGHT by default.
-   Flip with scaleX(-1) to face left (face then at local 44–72).
-───────────────────────────────────────────────────────────── */
-function CatSVG({ pose }: { pose: "walk" | "sit" }) {
+export type CatVariant =
+  | "black"
+  | "ginger"
+  | "gray"
+  | "cream"
+  | "mocha"
+  | "blue"
+  | "tuxedo"
+  | "orange-tabby"
+  | "calico"
+  | "lilac"
+  | "cinnamon"
+  | "white"
+  | "tortoiseshell"
+  | "russian-blue";
+
+interface CatPalette {
+  furDark: string;
+  furMid: string;
+  furLight: string;
+  /** Optional override for chest/belly patch (tuxedo, calico) */
+  patch?: string;
+}
+
+const CAT_PALETTES: Record<CatVariant, CatPalette> = {
+  // ── originals ──────────────────────────────────────────────
+  black: {
+    furDark:  "#0d0d0d",
+    furMid:   "#161616",
+    furLight: "#1e1e1e",
+  },
+  ginger: {
+    furDark:  "#9b4d1f",
+    furMid:   "#b85f26",
+    furLight: "#cf7a3a",
+  },
+  gray: {
+    furDark:  "#4a4a4f",
+    furMid:   "#5c5d63",
+    furLight: "#73757c",
+  },
+  cream: {
+    furDark:  "#b7a78f",
+    furMid:   "#cbbb9f",
+    furLight: "#dfd2bb",
+  },
+  mocha: {
+    furDark:  "#4e342e",
+    furMid:   "#6d4c41",
+    furLight: "#8d6e63",
+  },
+  blue: {
+    furDark:  "#355c7d",
+    furMid:   "#3f6b92",
+    furLight: "#5d87ad",
+  },
+
+  // ── new cat-lover favourites ────────────────────────────────
+
+  /** Classic black-and-white tuxedo cat */
+  tuxedo: {
+    furDark:  "#111111",
+    furMid:   "#1a1a1a",
+    furLight: "#f5f5f5",   // white chest / paws
+    patch:    "#f5f5f5",
+  },
+
+  /** Vivid orange tabby — think Garfield */
+  "orange-tabby": {
+    furDark:  "#c44b00",
+    furMid:   "#e05a00",
+    furLight: "#f07b2a",
+  },
+
+  /** Calico — warm white base with ginger highlights */
+  calico: {
+    furDark:  "#c47a3a",
+    furMid:   "#e8c9a0",
+    furLight: "#f5ede0",
+    patch:    "#c44040",   // tortie patch hint
+  },
+
+  /** Lilac / lavender — rare dilute colour, very coveted */
+  lilac: {
+    furDark:  "#8c7aaa",
+    furMid:   "#a892c2",
+    furLight: "#c8b8d8",
+  },
+
+  /** Cinnamon — warm brown like a Abyssinian */
+  cinnamon: {
+    furDark:  "#7a3b10",
+    furMid:   "#9c5020",
+    furLight: "#be7040",
+  },
+
+  /** Pure snow white — like a Turkish Angora */
+  white: {
+    furDark:  "#d8d8d8",
+    furMid:   "#ebebeb",
+    furLight: "#ffffff",
+  },
+
+  /** Tortoiseshell — dark brown + ginger + black swirls */
+  tortoiseshell: {
+    furDark:  "#2a1a0a",
+    furMid:   "#7a3a10",
+    furLight: "#c06020",
+  },
+
+  /** Russian Blue — distinctive blue-grey with silver tips */
+  "russian-blue": {
+    furDark:  "#3a4a5a",
+    furMid:   "#4e6070",
+    furLight: "#7a96a8",
+  },
+};
+
+function CatSVG({ pose, palette }: { pose: "walk" | "sit"; palette: CatPalette }) {
+  // For tuxedo: paws and chest use furLight (white)
+  const pawColor  = palette.patch ?? palette.furDark;
+  const pawColor2 = palette.patch ?? palette.furMid;
+
   return (
     <svg
       viewBox="0 0 76 76"
@@ -89,27 +199,25 @@ function CatSVG({ pose }: { pose: "walk" | "sit" }) {
       style={{ overflow: "visible", display: "block" }}
       aria-hidden="true"
     >
-      {/* Ground shadow */}
       <ellipse cx="38" cy="67" rx="21" ry="4" fill="#000" opacity="0.10" />
 
       <g className={`nk-${pose}`}>
-        {/* ── Bob wrapper ── */}
         <g className="nk-bob">
 
           {/* BACK LEGS */}
           <g transform="translate(47,46)">
             <g className="nk-la">
-              <rect x="-3.5" y="0" width="7" height="14" rx="3.5" fill="#0d0d0d" />
+              <rect x="-3.5" y="0" width="7" height="14" rx="3.5" fill={palette.furDark} />
               <g transform="translate(0,14)"><g className="nk-pa">
-                <ellipse cx="0" cy="2.5" rx="4.2" ry="2.8" fill="#0d0d0d" />
+                <ellipse cx="0" cy="2.5" rx="4.2" ry="2.8" fill={pawColor} />
               </g></g>
             </g>
           </g>
           <g transform="translate(41,46)">
             <g className="nk-lb">
-              <rect x="-3.5" y="0" width="7" height="14" rx="3.5" fill="#161616" />
+              <rect x="-3.5" y="0" width="7" height="14" rx="3.5" fill={palette.furMid} />
               <g transform="translate(0,14)"><g className="nk-pb">
-                <ellipse cx="0" cy="2.5" rx="4.2" ry="2.8" fill="#161616" />
+                <ellipse cx="0" cy="2.5" rx="4.2" ry="2.8" fill={pawColor2} />
               </g></g>
             </g>
           </g>
@@ -117,31 +225,35 @@ function CatSVG({ pose }: { pose: "walk" | "sit" }) {
           {/* TAIL */}
           <g transform="translate(53,38)">
             <g className="nk-tail">
-              <path d="M 0 0 Q 18 -5 14 -26" stroke="#111" strokeWidth="5.5"
+              <path d="M 0 0 Q 18 -5 14 -26" stroke={palette.furDark} strokeWidth="5.5"
                 fill="none" strokeLinecap="round" />
-              <circle cx="14" cy="-26" r="4" fill="#1e1e1e" />
+              <circle cx="14" cy="-26" r="4" fill={palette.furLight} />
             </g>
           </g>
 
           {/* BODY */}
-          <ellipse cx="33" cy="43" rx="10" ry="6"  fill="#1a1a1a" />
-          <ellipse cx="37" cy="40" rx="18" ry="12" fill="#111" />
+          <ellipse cx="33" cy="43" rx="10" ry="6" fill={palette.furMid} />
+          <ellipse cx="37" cy="40" rx="18" ry="12" fill={palette.furDark} />
+          {/* Chest patch for tuxedo / calico */}
+          {palette.patch && (
+            <ellipse cx="30" cy="42" rx="6" ry="5" fill={palette.patch} opacity="0.85" />
+          )}
 
           {/* NECK + HEAD */}
-          <ellipse cx="22" cy="34" rx="9" ry="6" fill="#111" />
-          <circle  cx="18" cy="22" r="14"         fill="#111" />
+          <ellipse cx="22" cy="34" rx="9" ry="6" fill={palette.furDark} />
+          <circle  cx="18" cy="22" r="14" fill={palette.furDark} />
 
           {/* EARS */}
-          <polygon points="6,17 10,2 18,14"      fill="#111" />
+          <polygon points="6,17 10,2 18,14"           fill={palette.furDark} />
           <polygon points="8.5,15.5 11.5,5.5 17,13.5" fill="#bf5c72" />
           <g className="nk-ear">
-            <polygon points="18,14 24,2 29,15"       fill="#111" />
-            <polygon points="19.5,13.5 24,5.5 27.5,14" fill="#bf5c72" />
+            <polygon points="18,14 24,2 29,15"            fill={palette.furDark} />
+            <polygon points="19.5,13.5 24,5.5 27.5,14"   fill="#bf5c72" />
           </g>
 
           {/* EYES */}
-          <ellipse cx="13.5" cy="22.5" rx="4" ry="4.5" fill="#1e1e1e" opacity="0.5" />
-          <ellipse cx="22"   cy="22.5" rx="4" ry="4.5" fill="#1e1e1e" opacity="0.5" />
+          <ellipse cx="13.5" cy="22.5" rx="4" ry="4.5" fill={palette.furLight} opacity="0.5" />
+          <ellipse cx="22"   cy="22.5" rx="4" ry="4.5" fill={palette.furLight} opacity="0.5" />
           <g className="nk-el">
             <ellipse cx="13.5" cy="22" rx="3.5" ry="4.2" fill="white" />
             <circle  cx="14"   cy="22.5" r="2.4" fill="#0d0d0d" />
@@ -167,70 +279,66 @@ function CatSVG({ pose }: { pose: "walk" | "sit" }) {
           <ellipse cx="25.5" cy="26.5" rx="3" ry="2" fill="#ff7799" opacity="0.22" />
 
           {/* WHISKERS */}
-          <line x1="0" y1="26"   x2="12" y2="27"   stroke="#bbb" strokeWidth="0.9" strokeLinecap="round" />
-          <line x1="0" y1="29"   x2="12" y2="28.5" stroke="#bbb" strokeWidth="0.9" strokeLinecap="round" />
-          <line x1="1" y1="24"   x2="11" y2="25.5" stroke="#bbb" strokeWidth="0.7" strokeLinecap="round" />
-          <line x1="25" y1="27"   x2="37" y2="26"  stroke="#bbb" strokeWidth="0.9" strokeLinecap="round" />
-          <line x1="25" y1="28.5" x2="37" y2="29"  stroke="#bbb" strokeWidth="0.9" strokeLinecap="round" />
-          <line x1="25" y1="25.5" x2="35" y2="24"  stroke="#bbb" strokeWidth="0.7" strokeLinecap="round" />
+          <line x1="0"  y1="26"   x2="12" y2="27"   stroke="#bbb" strokeWidth="0.9" strokeLinecap="round" />
+          <line x1="0"  y1="29"   x2="12" y2="28.5" stroke="#bbb" strokeWidth="0.9" strokeLinecap="round" />
+          <line x1="1"  y1="24"   x2="11" y2="25.5" stroke="#bbb" strokeWidth="0.7" strokeLinecap="round" />
+          <line x1="25" y1="27"   x2="37" y2="26"   stroke="#bbb" strokeWidth="0.9" strokeLinecap="round" />
+          <line x1="25" y1="28.5" x2="37" y2="29"   stroke="#bbb" strokeWidth="0.9" strokeLinecap="round" />
+          <line x1="25" y1="25.5" x2="35" y2="24"   stroke="#bbb" strokeWidth="0.7" strokeLinecap="round" />
 
           {/* FRONT LEGS */}
           <g transform="translate(21,46)">
             <g className="nk-lb">
-              <rect x="-3.5" y="0" width="7" height="14" rx="3.5" fill="#0d0d0d" />
+              <rect x="-3.5" y="0" width="7" height="14" rx="3.5" fill={palette.furDark} />
               <g transform="translate(0,14)"><g className="nk-pb">
-                <ellipse cx="0" cy="2.5" rx="4.2" ry="2.8" fill="#0d0d0d" />
+                <ellipse cx="0" cy="2.5" rx="4.2" ry="2.8" fill={pawColor} />
               </g></g>
             </g>
           </g>
           <g transform="translate(27,46)">
             <g className="nk-la">
-              <rect x="-3.5" y="0" width="7" height="14" rx="3.5" fill="#161616" />
+              <rect x="-3.5" y="0" width="7" height="14" rx="3.5" fill={palette.furMid} />
               <g transform="translate(0,14)"><g className="nk-pa">
-                <ellipse cx="0" cy="2.5" rx="4.2" ry="2.8" fill="#161616" />
+                <ellipse cx="0" cy="2.5" rx="4.2" ry="2.8" fill={pawColor2} />
               </g></g>
             </g>
           </g>
 
-        </g>{/* end nk-bob */}
+        </g>
       </g>
     </svg>
   );
 }
 
-/* ─────────────────────────────────────────────────────────────
-   Geometry constants
-   ─────────────────
-   SVG is 80px wide. Face occupies local x ≈ 4–32 (left side).
+const CAT_W  = 80;
+const FACE_R = 32;
+const FACE_L = 44;
+const SPEED  = 110;
+const MEOW_SOUNDS = ["/sounds/meow-1.wav", "/sounds/meow-2.wav", "/sounds/meow-3.wav"];
 
-   peek-right: cat faces RIGHT (scaleX=1), L = W - 32
-     → local 0–32 visible (face), local 32–80 off-screen right ✓
+interface WalkingCatProps {
+  variant?: CatVariant;
+}
 
-   peek-left: cat faces LEFT (scaleX=-1), face maps to local 44–72
-     → position L = -44 so local 44–80 is at screen 0–36
-     → face visible at left edge, body at local 0–43 is screen -44→-1 (clipped) ✓
-───────────────────────────────────────────────────────────── */
-const CAT_W   = 80;   // SVG width
-const FACE_R  = 32;   // face right edge in normal orientation
-const FACE_L  = 44;   // face left edge when scaleX(-1) (= 76-32 ≈ 44 for 76px; adjusted for 80)
-const SPEED   = 110;  // px / second during walk
-
-export default function WalkingCat() {
+export default function WalkingCat({ variant = "black" }: WalkingCatProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const catRef       = useRef<HTMLDivElement>(null);
   const innerRef     = useRef<HTMLDivElement>(null);
-  const poseRef      = useRef<"walk" | "sit">("sit");
   const timerRef     = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isActiveRef  = useRef(true);
+  const palette      = CAT_PALETTES[variant];
 
-  // Force re-render only for pose switch (walk vs sit)
+  const handleCatClick = () => {
+    const src = MEOW_SOUNDS[Math.floor(Math.random() * MEOW_SOUNDS.length)];
+    const meow = new Audio(src);
+    meow.volume = 0.65;
+    void meow.play().catch(() => {});
+  };
+
   const setPoseClass = (p: "walk" | "sit") => {
-    poseRef.current = p;
     if (innerRef.current) {
-      // The CatSVG g element has the nk-{pose} class — update it
       const g = innerRef.current.querySelector("g[class^='nk-']") as SVGGElement | null;
-      if (g) {
-        g.setAttribute("class", `nk-${p}`);
-      }
+      if (g) g.setAttribute("class", `nk-${p}`);
     }
   };
 
@@ -253,41 +361,53 @@ export default function WalkingCat() {
   useEffect(() => {
     const W = () => containerRef.current?.offsetWidth ?? 800;
 
-    /* ── STATE MACHINE ─────────────────────────────────────────
-       peek_right → enter_right → walk_left → peek_left → enter_left → walk_right → repeat
-    ─────────────────────────────────────────────────────────── */
+    const clearTimer = () => {
+      if (timerRef.current !== null) {
+        clearTimeout(timerRef.current);
+        timerRef.current = null;
+      }
+    };
+
+    const pauseMotion = () => {
+      clearTimer();
+      if (catRef.current) {
+        const currentLeft = parseFloat(getComputedStyle(catRef.current).left || "0");
+        catRef.current.style.transition = "none";
+        catRef.current.style.left = `${currentLeft}px`;
+      }
+      setPoseClass("sit");
+    };
 
     const peek_right = () => {
-      const w = W();
-      // Instant jump: cat faces right, face just inside right edge
+      if (!isActiveRef.current) return;
       setFacing(1, "none");
-      setPos(w - FACE_R, "none");
+      setPos(W() - FACE_R, "none");
       setPoseClass("sit");
       after(1600, enter_right);
     };
 
     const enter_right = () => {
-      const w = W();
-      // Flip to face left (0.25s), then slide body fully into view (600ms)
+      if (!isActiveRef.current) return;
       setFacing(1, "transform 0.25s ease");
       after(160, () => {
+        if (!isActiveRef.current) return;
         setPoseClass("walk");
-        setPos(w - CAT_W, "left 500ms ease-out");
+        setPos(W() - CAT_W, "left 500ms ease-out");
         after(600, walk_left);
       });
     };
 
     const walk_left = () => {
-      const w      = W();
-      const startL = w - CAT_W;           // full body just inside right
-      const endL   = -CAT_W;              // fully off-screen left
+      if (!isActiveRef.current) return;
+      const startL = W() - CAT_W;
+      const endL   = -CAT_W;
       const dur    = Math.round(((startL - endL) / SPEED) * 1000);
       setPos(endL, `left ${dur}ms linear`);
       after(dur, peek_left);
     };
 
     const peek_left = () => {
-      // From fully off-screen left, peek in first
+      if (!isActiveRef.current) return;
       setFacing(-1, "none");
       setPos(-CAT_W, "none");
       setPoseClass("sit");
@@ -296,9 +416,10 @@ export default function WalkingCat() {
     };
 
     const enter_left = () => {
-      // Flip to face right (0.25s), then slide body fully into view
+      if (!isActiveRef.current) return;
       setFacing(-1, "transform 0.25s ease");
       after(160, () => {
+        if (!isActiveRef.current) return;
         setPoseClass("walk");
         setPos(0, "left 500ms ease-out");
         after(600, walk_right);
@@ -306,20 +427,43 @@ export default function WalkingCat() {
     };
 
     const walk_right = () => {
-      const w    = W();
-      const endL = w;                     // fully off-screen right
-      const dur  = Math.round((w / SPEED) * 1000);
+      if (!isActiveRef.current) return;
+      const endL = W();
+      const dur  = Math.round((endL / SPEED) * 1000);
       setPos(endL, `left ${dur}ms linear`);
       after(dur, peek_right);
     };
 
-    // Kick off after a short delay so DOM has painted
-    timerRef.current = setTimeout(peek_right, 600);
+    const startMotion = () => {
+      clearTimer();
+      timerRef.current = setTimeout(peek_right, 200);
+    };
+
+    const observer =
+      typeof IntersectionObserver !== "undefined"
+        ? new IntersectionObserver(
+            ([entry]) => {
+              if (entry.isIntersecting) {
+                isActiveRef.current = true;
+                startMotion();
+              } else {
+                isActiveRef.current = false;
+                pauseMotion();
+              }
+            },
+            { threshold: 0.05 }
+          )
+        : null;
+
+    if (observer && containerRef.current) {
+      observer.observe(containerRef.current);
+    } else {
+      timerRef.current = setTimeout(peek_right, 600);
+    }
 
     return () => {
-      if (timerRef.current !== null) {
-        clearTimeout(timerRef.current);
-      }
+      clearTimer();
+      observer?.disconnect();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -327,35 +471,17 @@ export default function WalkingCat() {
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: STYLES }} />
-
-      {/*
-        This div covers the hero section absolutely.
-        overflow:hidden here is what clips the cat at section edges.
-        pointerEvents:none so it never blocks clicks on content.
-      */}
       <div
         ref={containerRef}
-        style={{
-          position:      "absolute",
-          inset:         0,
-          overflow:      "hidden",
-          pointerEvents: "none",
-          zIndex:        20,
-        }}
+        style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none", zIndex: 20 }}
       >
-        {/* Outer div — moves left/right */}
         <div
           ref={catRef}
-          style={{
-            position:  "absolute",
-            bottom:    12,
-            left:      0,
-            willChange:"left",
-          }}
+          onClick={handleCatClick}
+          style={{ position: "absolute", bottom: 12, left: 0, willChange: "left", pointerEvents: "auto", cursor: "pointer" }}
         >
-          {/* Inner div — flips cat direction */}
           <div ref={innerRef} style={{ willChange: "transform" }}>
-            <CatSVG pose="sit" />
+            <CatSVG pose="sit" palette={palette} />
           </div>
         </div>
       </div>

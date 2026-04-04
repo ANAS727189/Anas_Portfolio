@@ -12,8 +12,9 @@ import { Album, MessagesSquare, Trophy, Sparkles } from "lucide-react";
 import { socialLinks, techBadges } from "@/config/Hero";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import WalkingCat from "@/components/WalkingCat"; // ← adjust path if needed
+import Constellation from "@/components/Constellation";
 
+// ─── Hero ────────────────────────────────────────────────────────────────────
 const Hero = () => {
   const router = useRouter();
   const [, setAvatarClicks] = useState(0);
@@ -30,21 +31,15 @@ const Hero = () => {
   };
 
   return (
-    /*
-      position: relative  → lets WalkingCat's absolute container anchor here
-      overflow is NOT set on the section; clipping is handled inside WalkingCat
-      pb-20              → extra bottom padding so the cat has visible runway
-    */
-    <section className="relative flex flex-col items-center text-center mt-1 space-y-6 pb-20">
+    <section className="relative flex w-full flex-col items-center text-center mt-1 space-y-6 pb-20 overflow-hidden">
+      {/* ── Particle background ── */}
+      <Constellation nodeCount={95} maxDist={0.22} />
 
-      {/* 🐱 Walking cat — clips itself to this section */}
-      <WalkingCat />
-
-      {/* Avatar */}
+      {/* ── Avatar ── */}
       <button
         type="button"
         onClick={handleAvatarClick}
-        className="rounded-full focus:outline-none"
+        className="rounded-full focus:outline-none relative z-10"
         aria-label="Profile image"
       >
         <Image
@@ -56,31 +51,34 @@ const Hero = () => {
         />
       </button>
 
-      {/* Headline */}
-      <h1 className="text-5xl font-bold">
+      {/* ── Headline ── */}
+      <h1 className="text-5xl font-bold relative z-10">
         Hi, I'm Anas ~{" "}
         <span className="text-gray-400">Software Engineer.</span>
       </h1>
 
-      {/* Description */}
-      <p className="max-w-2xl text-gray-500 leading-relaxed text-2xl">
-        I build end-to-end software products{" "}
-        {techBadges.map((tech, idx) => (
-          <React.Fragment key={idx}>
-            <span className="inline-flex items-center gap-2 font-bold bg-gray-800 px-2 py-1 rounded-sm text-xl text-gray-200">
-              <Image src={tech.src} alt={tech.alt} width={20} height={20} />
-              {tech.label}
-            </span>
-            {idx < techBadges.length - 2 && (
-              <span className="mx-2 text-gray-400">,</span>
-            )}
-            {idx === techBadges.length - 2 && (
-              <span className="mx-2 text-gray-400"> and </span>
-            )}
-          </React.Fragment>
-        ))}{" "}
-        combining full-stack execution with strong problem-solving, system
-        design, and performance-focused engineering.
+      {/* ── Description ── */}
+      <div className="max-w-2xl text-gray-500 leading-relaxed text-2xl relative z-10">
+        <p>
+          I build end-to-end software products{" "}
+          {techBadges.map((tech, idx) => (
+            <React.Fragment key={idx}>
+              <span className="inline-flex items-center gap-2 font-bold bg-gray-800 px-2 py-1 rounded-sm text-xl text-gray-200">
+                <Image src={tech.src} alt={tech.alt} width={20} height={20} />
+                {tech.label}
+              </span>
+              {idx < techBadges.length - 2 && (
+                <span className="mx-2 text-gray-400">,</span>
+              )}
+              {idx === techBadges.length - 2 && (
+                <span className="mx-2 text-gray-400"> and </span>
+              )}
+            </React.Fragment>
+          ))}{" "}
+          combining full-stack execution with strong problem-solving, system
+          design, and performance-focused engineering.
+        </p>
+
         <div className="gap-3 mt-3 flex flex-wrap justify-center">
           <span className="inline-flex items-center gap-2 text-sm font-semibold px-3 py-1.5 rounded-full bg-yellow-50 text-yellow-700 border border-yellow-200 dark:bg-yellow-900/20 dark:text-yellow-300 dark:border-yellow-700/50">
             <Trophy size={15} /> 3x Hackathon Winner
@@ -89,10 +87,10 @@ const Hero = () => {
             <Sparkles size={15} /> ICPC 2025 Regionalist
           </span>
         </div>
-      </p>
+      </div>
 
-      {/* Buttons */}
-      <div className="flex gap-5">
+      {/* ── Buttons ── */}
+      <div className="flex gap-5 relative z-10">
         <a
           href="https://drive.google.com/file/d/1cjhJJIUvmrdoBCh-aGElAF6Vox2_1XYo/view?usp=sharing"
           target="_blank"
@@ -115,9 +113,9 @@ const Hero = () => {
         </Link>
       </div>
 
-      {/* Social Icons with tooltips */}
+      {/* ── Social Icons ── */}
       <TooltipProvider delayDuration={100}>
-        <div className="flex gap-6 mt-4">
+        <div className="flex gap-6 mt-4 relative z-10">
           {socialLinks.map((link) => (
             <Tooltip key={link.label}>
               <TooltipTrigger asChild>
@@ -137,7 +135,6 @@ const Hero = () => {
           ))}
         </div>
       </TooltipProvider>
-
     </section>
   );
 };
