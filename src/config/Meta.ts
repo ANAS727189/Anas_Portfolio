@@ -11,7 +11,7 @@ export interface PageMeta {
 
 export const siteConfig = {
   name: heroConfig.name,
-  title: 'Anas Khan | Full Stack Developer & UI/UX Designer',
+  title: 'Anas Khan | Software Engineer',
   description:
     'Anas Khan - Full Stack Developer & UI/UX Designer. Expert in React, Next.js, Node.js, TypeScript, Solidity, Go, Next.js, Python, Docker, and Web3. Winner of 3 hackathons including Devhack 5.0 (IIT Dharwad). Open Source Contributor to LFortran & SymPy. Codeforces Expert (1614). Building scalable web platforms, compilers, and decentralized applications.',
   url: 'https://anas-khan.is-a.dev',
@@ -74,7 +74,7 @@ export const siteConfig = {
 
 export const pageMetadata: Record<string, PageMeta> = {
   '/': {
-    title: 'Anas Khan | Full Stack Developer & UI/UX Designer',
+    title: 'Anas Khan | Software Engineer',
     description: `Anas Khan - Full Stack Developer & UI/UX Designer. Expert in React, Node.js, Solidity, Rust, Docker, and Web3. 3x Hackathon Winner. Open Source Contributor to LFortran & SymPy. Codeforces Expert (1614).`,
     keywords: [
       'Anas Khan',
