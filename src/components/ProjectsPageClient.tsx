@@ -2,7 +2,7 @@
 
 import React from 'react'
 import Image from 'next/image'
-import { Github, Globe } from 'lucide-react'
+import { Code2, Github, Globe } from 'lucide-react'
 import BackButton from '@/components/BackButton'
 import type { JSX } from 'react'
 import {
@@ -32,6 +32,20 @@ import {
   SiRedis,
   SiFlask,
   SiGnubash,
+  SiDocker,
+  SiElectron,
+  SiFastapi,
+  SiFirebase,
+  SiGithubactions,
+  SiGit,
+  SiGrafana,
+  SiRedux,
+  SiRust,
+  SiScikitlearn,
+  SiSolana,
+  SiSocketdotio,
+  SiVercel,
+  SiVite,
 } from 'react-icons/si'
 import { useProjectsCatalog } from '@/lib/useProjectsCatalog'
 
@@ -65,29 +79,63 @@ const techIcons: Record<string, JSX.Element> = {
   'Chart.js': <SiChartdotjs size={18} />,
   Redis: <SiRedis size={18} />,
   Flask: <SiFlask size={18} />,
+  FastAPI: <SiFastapi size={18} />,
+  Firebase: <SiFirebase size={18} />,
+  Docker: <SiDocker size={18} />,
+  Electron: <SiElectron size={18} />,
+  Vercel: <SiVercel size={18} />,
+  Solana: <SiSolana size={18} />,
+  Rust: <SiRust size={18} />,
+  Redux: <SiRedux size={18} />,
+  'GitHub Actions': <SiGithubactions size={18} />,
+  'Git internals': <SiGit size={18} />,
+  Grafana: <SiGrafana size={18} />,
+  'Scikit-learn': <SiScikitlearn size={18} />,
+  'Socket.io': <SiSocketdotio size={18} />,
   'Judge0 API': <SiGnubash size={18} />,
   LLVM: <SiGnubash size={18} />,
+  'SHA-1': <SiGnubash size={18} />,
+  Zlib: <SiGnubash size={18} />,
+  CLI: <SiGnubash size={18} />,
   watchdog: <SiPython size={18} />,
   tqdm: <SiPython size={18} />,
   colorama: <SiPython size={18} />,
   'Ethers.js': <SiEthereum size={18} />,
   Wagmi: <SiEthereum size={18} />,
   OpenZeppelin: <SiEthereum size={18} />,
-  Vite: <SiJavascript size={18} />,
-  Auth0: <SiJavascript size={18} />,
-  Leaflet: <SiJavascript size={18} />,
+  Vite: <SiVite size={18} />,
+  Auth0: <SiNodedotjs size={18} />,
+  Leaflet: <SiReact size={18} />,
   Recharts: <SiChartdotjs size={18} />,
-  'Scikit-learn': <SiPython size={18} />,
   recharts: <SiChartdotjs size={18} />,
   Mongoose: <SiMongodb size={18} />,
   'Gemini-api': <SiPython size={18} />,
   shadcn: <SiReact size={18} />,
-  Clerk: <SiJavascript size={18} />,
+  Clerk: <SiReact size={18} />,
   'SERP-API': <SiPython size={18} />,
-  'Crunchbase API': <SiJavascript size={18} />,
+  'Crunchbase API': <SiPython size={18} />,
   Zustand: <SiReact size={18} />,
   Nodejs: <SiNodedotjs size={18} />,
   ExpressJS: <SiExpressjs size={18} />,
+  FAISS: <SiPython size={18} />,
+  LangChain: <SiPython size={18} />,
+  Pygame: <SiPython size={18} />,
+  PyInstaller: <SiPython size={18} />,
+  Kestra: <SiPython size={18} />,
+}
+
+const techIconAliases: Record<string, string> = {
+  tailwindcss: 'Tailwind CSS',
+  typescript: 'TypeScript',
+  nodejs: 'Node.js',
+  expressjs: 'Express.js',
+  recharts: 'Recharts',
+  python3: 'Python3',
+}
+
+const getTechIcon = (tech: string): JSX.Element => {
+  const alias = techIconAliases[tech.toLowerCase()]
+  return techIcons[tech] || (alias ? techIcons[alias] : undefined) || <Code2 size={18} />
 }
 
 const ProjectsPageClient = () => {
@@ -160,7 +208,7 @@ const ProjectsPageClient = () => {
                         key={tech}
                         className="bg-gray-100 dark:bg-gray-800 text-xs px-2.5 py-1 rounded-md text-gray-700 dark:text-gray-300 flex items-center gap-1.5"
                       >
-                        {techIcons[tech] || <SiJavascript size={18} />}
+                        {getTechIcon(tech)}
                         {tech}
                       </span>
                     ))}

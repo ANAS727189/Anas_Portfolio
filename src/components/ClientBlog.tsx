@@ -2,8 +2,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { blogTechIcons } from '@/config/blogIcons';
-import { SiJavascript } from 'react-icons/si';
+import { Code2 } from 'lucide-react';
+import { getBlogTechIcon } from '@/config/blogIcons';
 import { Blog } from '@/types/blog';
 
 interface ClientBlogProps {
@@ -63,7 +63,7 @@ export default function ClientBlog({ blogs }: ClientBlogProps) {
                           key={tag}
                           className="bg-gray-100 dark:bg-gray-800 text-md px-2.5 py-1 rounded-md text-gray-700 dark:text-gray-300 flex items-center gap-1.5"
                         >
-                          {blogTechIcons[tag] || <SiJavascript size={16} className="text-yellow-400" />}
+                          {getBlogTechIcon(tag) || <Code2 size={16} className="text-gray-500 dark:text-gray-400" />}
                           {tag}
                         </span>
                       ))}

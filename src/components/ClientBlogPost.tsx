@@ -1,8 +1,8 @@
 'use client';
 import { useEffect } from 'react';
 import Image from 'next/image';
-import { blogTechIcons } from '@/config/blogIcons';
-import { SiJavascript } from 'react-icons/si';
+import { Code2 } from 'lucide-react';
+import { getBlogTechIcon } from '@/config/blogIcons';
 import { Blog } from '@/types/blog';
 
 interface ClientBlogPostProps {
@@ -63,7 +63,7 @@ export default function ClientBlogPost({ blog }: ClientBlogPostProps) {
                 key={tag}
                 className="bg-gray-100 dark:bg-gray-800 text-sm px-3 py-1.5 rounded-md text-gray-700 dark:text-gray-300 flex items-center gap-2 font-medium"
               >
-                {blogTechIcons[tag] || <SiJavascript size={16} className="text-yellow-400" />}
+                {getBlogTechIcon(tag) || <Code2 size={16} className="text-gray-500 dark:text-gray-400" />}
                 {tag}
               </span>
             ))}

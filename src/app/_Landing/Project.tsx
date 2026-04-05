@@ -3,7 +3,7 @@
 import * as React from 'react'
 import type { JSX } from 'react'
 import Image from 'next/image'
-import { ArrowDownRight, ArrowUpRight, Crown, Github, Globe, Medal, Minus, Trophy } from 'lucide-react'
+import { ArrowDownRight, ArrowUpRight, Code2, Crown, Github, Globe, Medal, Minus, Trophy } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { useProjectsCatalog } from '@/lib/useProjectsCatalog'
@@ -35,6 +35,19 @@ import {
   SiRedis,
   SiFlask,
   SiGnubash,
+  SiDocker,
+  SiElectron,
+  SiFastapi,
+  SiFirebase,
+  SiGithubactions,
+  SiGit,
+  SiGrafana,
+  SiRust,
+  SiScikitlearn,
+  SiSolana,
+  SiSocketdotio,
+  SiVercel,
+  SiVite,
 } from 'react-icons/si'
 
 const techIcons: Record<string, JSX.Element> = {
@@ -67,29 +80,63 @@ const techIcons: Record<string, JSX.Element> = {
   'Chart.js': <SiChartdotjs size={16} />,
   'Redis': <SiRedis size={16} />,
   'Flask': <SiFlask size={16} />,
+  'FastAPI': <SiFastapi size={16} />,
+  'Firebase': <SiFirebase size={16} />,
+  'Docker': <SiDocker size={16} />,
+  'Electron': <SiElectron size={16} />,
+  'Vercel': <SiVercel size={16} />,
+  'Solana': <SiSolana size={16} />,
+  'Rust': <SiRust size={16} />,
+  'GitHub Actions': <SiGithubactions size={16} />,
+  'Git internals': <SiGit size={16} />,
+  'Grafana': <SiGrafana size={16} />,
+  'Scikit-learn': <SiScikitlearn size={16} />,
+  'Socket.io': <SiSocketdotio size={16} />,
   'Judge0 API': <SiGnubash size={16} />,
   'LLVM': <SiGnubash size={16} />,
+  'SHA-1': <SiGnubash size={16} />,
+  'Zlib': <SiGnubash size={16} />,
+  'CLI': <SiGnubash size={16} />,
   'watchdog': <SiPython size={16} />,
   'tqdm': <SiPython size={16} />,
   'colorama': <SiPython size={16} />,
   'Ethers.js': <SiEthereum size={16} />,
   'Wagmi': <SiEthereum size={16} />,
   'OpenZeppelin': <SiEthereum size={16} />,
-  'Vite': <SiJavascript size={16} />,
-  'Auth0': <SiJavascript size={16} />,
-  'Leaflet': <SiJavascript size={16} />,
+  'Vite': <SiVite size={16} />,
+  'Auth0': <SiNodedotjs size={16} />,
+  'Leaflet': <SiReact size={16} />,
   'Recharts': <SiChartdotjs size={16} />,
-  'Scikit-learn': <SiPython size={16} />,
   'recharts': <SiChartdotjs size={16} />,
   'Mongoose': <SiMongodb size={16} />,
   'Gemini-api': <SiPython size={16} />,
   'shadcn': <SiReact size={16} />,
-  'Clerk': <SiJavascript size={16} />,
+  'Clerk': <SiReact size={16} />,
   'SERP-API': <SiPython size={16} />,
-  'Crunchbase API': <SiJavascript size={16} />,
+  'Crunchbase API': <SiPython size={16} />,
   'Zustand': <SiReact size={16} />,
   'Nodejs': <SiNodedotjs size={16} />,
   'ExpressJS': <SiExpressjs size={16} />,
+  'FAISS': <SiPython size={16} />,
+  'LangChain': <SiPython size={16} />,
+  'Pygame': <SiPython size={16} />,
+  'PyInstaller': <SiPython size={16} />,
+  'Kestra': <SiPython size={16} />,
+  'Redux': <SiRedux size={16} />,
+}
+
+const techIconAliases: Record<string, string> = {
+  tailwindcss: 'Tailwind CSS',
+  typescript: 'TypeScript',
+  nodejs: 'Node.js',
+  expressjs: 'Express.js',
+  recharts: 'Recharts',
+  python3: 'Python3',
+}
+
+const getTechIcon = (tech: string): JSX.Element => {
+  const alias = techIconAliases[tech.toLowerCase()]
+  return techIcons[tech] || (alias ? techIcons[alias] : undefined) || <Code2 size={16} />
 }
 
 const Project = () => {
@@ -301,7 +348,7 @@ const Project = () => {
                           key={tech}
                           className="bg-gray-100 dark:bg-gray-800 text-md px-2.5 py-1 rounded-md text-gray-700 dark:text-gray-300 flex items-center gap-1.5"
                         >
-                          {techIcons[tech] || <SiJavascript size={16} />}
+                          {getTechIcon(tech)}
                           {tech}
                         </span>
                       ))}

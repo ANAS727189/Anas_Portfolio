@@ -272,4 +272,22 @@ export const blogTechIcons: Record<string, JSX.Element> = {
   'Discussion': <SiJavascript size={16} className="text-pink-500" />,
   'Comparison': <SiJavascript size={16} className="text-teal-500" />,
   'Review': <SiJavascript size={16} className="text-indigo-500" />,
+  'react': <SiReact size={16} className="text-blue-400" />,
+  'golang': <SiGo size={16} className="text-cyan-400" />,
+  'coding': <SiGit size={16} className="text-orange-600" />,
+  'programming': <SiGit size={16} className="text-orange-600" />,
+  'future': <SiVite size={16} className="text-purple-500" />,
+  'technology': <SiNodedotjs size={16} className="text-green-600" />,
+  'culture': <SiTableau size={16} className="text-blue-600" />,
+  'science-fiction': <SiJulia size={16} className="text-purple-600" />,
+};
+
+const blogTagAliases: Record<string, string> = {
+  react: 'React',
+  golang: 'Go',
+};
+
+export const getBlogTechIcon = (tag: string): JSX.Element | undefined => {
+  const alias = blogTagAliases[tag.toLowerCase()];
+  return blogTechIcons[tag] || (alias ? blogTechIcons[alias] : undefined);
 };
