@@ -243,7 +243,7 @@ const RepoPage: React.FC = () => {
       const percentage = ((data.value / total) * 100).toFixed(1);
 
       return (
-        <div className="bg-white dark:bg-gray-800 px-4 py-3 rounded-lg border border-gray-200 dark:border-gray-600 shadow-lg">
+        <div className="bg-white dark:bg-black px-4 py-3 rounded-lg border border-gray-200 dark:border-gray-600 shadow-lg">
           <div className="flex items-center gap-2 mb-2">
             <div className="w-3 h-3 rounded-full" style={{ backgroundColor: data.color }} />
             <span className="font-medium text-gray-900 dark:text-white">{data.name}</span>
@@ -261,8 +261,8 @@ const RepoPage: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="rounded-2xl p-[1px] bg-gray-200 dark:bg-[#171717] mb-8">
-        <div className="bg-white dark:bg-[#111] rounded-2xl p-8 shadow-md dark:shadow-none">
+      <div className="rounded-2xl p-[1px] bg-gray-200 dark:bg-black mb-8">
+        <div className="bg-white dark:bg-black rounded-2xl p-8 shadow-md dark:shadow-none">
           <div className="flex items-center justify-center py-12">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
           </div>
@@ -325,8 +325,8 @@ const RepoPage: React.FC = () => {
   return (
     <div className="space-y-8">
       {/* Header with Stats */}
-      <div className="rounded-2xl p-[1px] bg-gray-200 dark:bg-[#171717]">
-        <div className="bg-white dark:bg-[#111] rounded-2xl p-8 shadow-md dark:shadow-none">
+      <div className="rounded-2xl p-[1px] bg-gray-200 dark:bg-black">
+        <div className="bg-white dark:bg-black rounded-2xl p-8 shadow-md dark:shadow-none">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
             <div>
               <h4 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
@@ -358,7 +358,7 @@ const RepoPage: React.FC = () => {
           {/* Primary Stats */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             {stats.map((stat, index) => (
-              <div key={index} className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
+              <div key={index} className="bg-gray-50 dark:bg-black rounded-lg p-4">
                 <div className={`${stat.color} flex items-center gap-2 mb-1`}>
                   {stat.icon}
                   <span className="text-xl font-bold">{stat.value}</span>
@@ -373,7 +373,7 @@ const RepoPage: React.FC = () => {
           {/* Additional Stats */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             {additionalStats.map((stat, index) => (
-              <div key={index} className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
+              <div key={index} className="bg-gray-50 dark:bg-black rounded-lg p-4">
                 <div className="flex items-center gap-2 mb-2">
                   <span className={stat.color}>{stat.icon}</span>
                   <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -396,8 +396,8 @@ const RepoPage: React.FC = () => {
       {activeView === 'languages' && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Language Distribution Chart */}
-          <div className="rounded-2xl p-[1px] bg-gray-200 dark:bg-[#171717]">
-            <div className="bg-white dark:bg-[#111] rounded-2xl p-6 shadow-md dark:shadow-none h-full">
+          <div className="rounded-2xl p-[1px] bg-gray-200 dark:bg-black">
+            <div className="bg-white dark:bg-black rounded-2xl p-6 shadow-md dark:shadow-none h-full">
               <div className="flex items-center gap-2 mb-6">
                 <Code className="w-5 h-5 text-blue-500" />
                 <h4 className="text-xl font-semibold text-gray-900 dark:text-white">Language Distribution</h4>
@@ -437,8 +437,8 @@ const RepoPage: React.FC = () => {
           </div>
 
           {/* Top Languages by Stars */}
-          <div className="rounded-2xl p-[1px] bg-gray-200 dark:bg-[#171717]">
-            <div className="bg-white dark:bg-[#111] rounded-2xl p-6 shadow-md dark:shadow-none h-full">
+          <div className="rounded-2xl p-[1px] bg-gray-200 dark:bg-black">
+            <div className="bg-white dark:bg-black rounded-2xl p-6 shadow-md dark:shadow-none h-full">
               <div className="flex items-center gap-2 mb-6">
                 <Star className="w-5 h-5 text-yellow-500" />
                 <h4 className="text-xl font-semibold text-gray-900 dark:text-white">Top Languages by Impact</h4>
@@ -448,7 +448,7 @@ const RepoPage: React.FC = () => {
                   const total = languageChartData.reduce((acc, curr) => acc + curr.value, 0);
                   const percentage = ((lang.value / total) * 100).toFixed(1);
                   return (
-                    <div key={lang.name} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+                    <div key={lang.name} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-black rounded-lg">
                       <div className="flex items-center gap-3">
                         <div className="flex items-center gap-2">
                           <span className="text-lg font-bold text-gray-400 dark:text-gray-500 w-6">
@@ -478,8 +478,8 @@ const RepoPage: React.FC = () => {
       {activeView === 'categories' && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Technology Categories Chart */}
-          <div className="rounded-2xl p-[1px] bg-gray-200 dark:bg-[#171717]">
-            <div className="bg-white dark:bg-[#111] rounded-2xl p-6 shadow-md dark:shadow-none h-full">
+          <div className="rounded-2xl p-[1px] bg-gray-200 dark:bg-black">
+            <div className="bg-white dark:bg-black rounded-2xl p-6 shadow-md dark:shadow-none h-full">
               <div className="flex items-center gap-2 mb-6">
                 <Package className="w-5 h-5 text-purple-500" />
                 <h4 className="text-xl font-semibold text-gray-900 dark:text-white">Technology Categories</h4>
@@ -516,15 +516,15 @@ const RepoPage: React.FC = () => {
           </div>
 
           {/* Category Breakdown */}
-          <div className="rounded-2xl p-[1px] bg-gray-200 dark:bg-[#171717]">
-            <div className="bg-white dark:bg-[#111] rounded-2xl p-6 shadow-md dark:shadow-none h-full">
+          <div className="rounded-2xl p-[1px] bg-gray-200 dark:bg-black">
+            <div className="bg-white dark:bg-black rounded-2xl p-6 shadow-md dark:shadow-none h-full">
               <div className="flex items-center gap-2 mb-6">
                 <Target className="w-5 h-5 text-green-500" />
                 <h4 className="text-xl font-semibold text-gray-900 dark:text-white">Category Breakdown</h4>
               </div>
               <div className="space-y-4">
                 {filteredCategories.map((category, index) => (
-                  <div key={category.name} className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+                  <div key={category.name} className="p-4 bg-gray-50 dark:bg-black rounded-lg">
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-3">
                         <div className="w-4 h-4 rounded-full" style={{ backgroundColor: category.color }} />
@@ -555,8 +555,8 @@ const RepoPage: React.FC = () => {
       )}
 
       {activeView === 'timeline' && (
-        <div className="rounded-2xl p-[1px] bg-gray-200 dark:bg-[#171717]">
-          <div className="bg-white dark:bg-[#111] rounded-2xl p-6 shadow-md dark:shadow-none">
+        <div className="rounded-2xl p-[1px] bg-gray-200 dark:bg-black">
+          <div className="bg-white dark:bg-black rounded-2xl p-6 shadow-md dark:shadow-none">
             <div className="flex items-center gap-2 mb-6">
               <Calendar className="w-5 h-5 text-blue-500" />
               <h4 className="text-xl font-semibold text-gray-900 dark:text-white">Repository Creation Timeline</h4>

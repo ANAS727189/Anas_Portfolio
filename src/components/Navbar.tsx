@@ -66,18 +66,39 @@ const Navbar = () => {
               Work
             </a>
             <a
-              href="#blogs"
-              onClick={(e) => handleNavClick(e, "blogs")}
-              className="cursor-pointer transition-all duration-300 ease-in-out hover:underline hover:decoration-wavy hover:underline-offset-4"
-            >
-              Blogs
-            </a>
-            <a
               href="#projects"
               onClick={(e) => handleNavClick(e, "projects")}
               className="cursor-pointer transition-all duration-300 ease-in-out hover:underline hover:decoration-wavy hover:underline-offset-4"
             >
               Projects
+            </a>
+            <a
+              href="#open-source"
+              onClick={(e) => handleNavClick(e, "open-source")}
+              className="cursor-pointer transition-all duration-300 ease-in-out hover:underline hover:decoration-wavy hover:underline-offset-4"
+            >
+              OSS
+            </a>
+            <a
+              href="#skills"
+              onClick={(e) => handleNavClick(e, "skills")}
+              className="cursor-pointer transition-all duration-300 ease-in-out hover:underline hover:decoration-wavy hover:underline-offset-4"
+            >
+              Skills
+            </a>
+            <a
+              href="#achievements"
+              onClick={(e) => handleNavClick(e, "achievements")}
+              className="cursor-pointer transition-all duration-300 ease-in-out hover:underline hover:decoration-wavy hover:underline-offset-4"
+            >
+              Achievements
+            </a>
+            <a
+              href="#blogs"
+              onClick={(e) => handleNavClick(e, "blogs")}
+              className="cursor-pointer transition-all duration-300 ease-in-out hover:underline hover:decoration-wavy hover:underline-offset-4"
+            >
+              Blogs
             </a>
           </div>
         </div>

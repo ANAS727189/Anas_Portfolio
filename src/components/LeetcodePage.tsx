@@ -172,7 +172,7 @@ const LeetcodePage: React.FC = () => {
   const CustomTooltip: React.FC<any> = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-white dark:bg-gray-800 p-3 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg">
+        <div className="bg-white dark:bg-black p-3 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg">
           <p className="text-gray-900 dark:text-white font-medium">{`${label}: ${payload[0].value}`}</p>
         </div>
       );
@@ -196,7 +196,7 @@ const LeetcodePage: React.FC = () => {
     <>
       {/* LeetCode Problems Chart */}
       <div className="rounded-2xl p-[1px] bg-gray-200 dark:bg-gray-800 mb-8">
-        <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 h-full">
+        <div className="bg-white dark:bg-black rounded-2xl p-6 h-full">
           <div className="flex items-center gap-2 mb-6">
             <Trophy className="w-5 h-5 text-blue-500" />
             <h4 className="text-xl font-semibold text-gray-900 dark:text-white">LeetCode Progress</h4>
@@ -220,7 +220,7 @@ const LeetcodePage: React.FC = () => {
 
       {/* Detailed Stats */}
       <div className="rounded-2xl p-[1px] bg-gray-200 dark:bg-gray-800">
-        <div className="bg-white dark:bg-gray-900 rounded-2xl p-6">
+        <div className="bg-white dark:bg-black rounded-2xl p-6">
           <div className="flex items-center gap-2 mb-6">
             <TrendingUp className="w-5 h-5 text-blue-500" />
             <h4 className="text-xl font-semibold text-gray-900 dark:text-white">Detailed Metrics</h4>

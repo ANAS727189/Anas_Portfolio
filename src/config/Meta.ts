@@ -178,6 +178,23 @@ export const pageMetadata: Record<string, PageMeta> = {
     ogImage: '/meta/blogs.png',
     twitterCard: 'summary_large_image',
   },
+
+  '/open-source': {
+    title: 'Open Source Contributions | Anas Khan',
+    description:
+      'Explore my open source work in projects like LFortran and SymPy, including merged pull requests and compiler/math engine improvements.',
+    keywords: [
+      'open source',
+      'LFortran',
+      'SymPy',
+      'GitHub contributions',
+      'pull requests',
+      'compiler contributions',
+      'Anas Khan open source',
+    ],
+    ogImage: '/meta/projects.png',
+    twitterCard: 'summary_large_image',
+  },
 };
 
 export function getPageMetadata(pathname: string): PageMeta {

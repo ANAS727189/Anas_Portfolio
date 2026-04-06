@@ -155,8 +155,8 @@ const GithubPage: React.FC = () => {
         {/* <p className="text-lg text-blue-500 dark:text-blue-400 font-semibold">Open Source</p>
         <h3 className="text-4xl font-bold mb-8 text-gray-900 dark:text-white">GitHub Profile</h3> */}
 
-        <div className="rounded-2xl p-[1px] bg-gray-200 dark:bg-[#171717]">
-          <div className="bg-white dark:bg-[#111] rounded-2xl p-8 shadow-md dark:shadow-none">
+        <div className="rounded-2xl p-[1px] bg-gray-200 dark:bg-black">
+          <div className="bg-white dark:bg-black rounded-2xl p-8 shadow-md dark:shadow-none border border-transparent">
             <div className="flex flex-col lg:flex-row items-start gap-8">
               {/* Profile Image */}
               {githubData?.avatar_url && (
@@ -168,7 +168,7 @@ const GithubPage: React.FC = () => {
                       fill
                       className="rounded-2xl object-cover"
                     />
-                    <div className="absolute -bottom-2 -right-2 bg-blue-500 rounded-full p-2 ring-4 ring-white dark:ring-[#111]">
+                    <div className="absolute -bottom-2 -right-2 bg-blue-500 rounded-full p-2 ring-4 ring-white dark:ring-black">
                       <Code className="w-4 h-4 text-white" />
                     </div>
                   </div>

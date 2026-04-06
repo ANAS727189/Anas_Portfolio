@@ -222,7 +222,7 @@ const Project = () => {
                 return (
                 <div key={`podium-${project.title}`} className="flex flex-col justify-end">
                   <div
-                    className={`relative rounded-2xl border p-4 bg-white dark:bg-[#111] transition-transform duration-200 hover:-translate-y-1 ${rankStyles[rank]}`}
+                    className={`relative rounded-2xl border p-4 bg-white dark:bg-black transition-transform duration-200 hover:-translate-y-1 ${rankStyles[rank]}`}
                   >
                     {rank === 1 && (
                       <div className="absolute -top-3 right-3 rounded-full bg-yellow-400 text-black text-[10px] font-extrabold px-2.5 py-1 tracking-wide">
@@ -290,9 +290,9 @@ const Project = () => {
           {allProjects.slice(0, 4).map((project) => (
             <div
               key={project.title}
-              className="rounded-2xl p-[1px] hover:scale-[1.02] transition-transform duration-200 bg-gray-200 dark:bg-[#171717]"
+              className="rounded-2xl p-[1px] hover:scale-[1.02] transition-transform duration-200 bg-gray-200 dark:bg-black"
             >
-              <div className="bg-white dark:bg-[#111] rounded-2xl overflow-hidden flex flex-col h-full shadow-md dark:shadow-none">
+              <div className="bg-white dark:bg-black rounded-2xl overflow-hidden flex flex-col h-full shadow-md dark:shadow-none border border-transparent dark:border-gray-700">
                 {/* Project Image */}
                 {project.image && (
                   <div className="relative w-full h-48">

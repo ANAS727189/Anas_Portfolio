@@ -58,7 +58,7 @@ export default function CodeBlock({ language, children }: CodeBlockProps) {
 
   if (!mounted) {
     return (
-      <div className="relative group my-6 rounded-lg shadow-md overflow-hidden bg-white dark:bg-[#1e1e1e]">
+      <div className="relative group my-6 rounded-lg shadow-md overflow-hidden bg-white dark:bg-black">
         <div className="p-4 text-sm text-gray-500">Loading code...</div>
       </div>
     );
@@ -67,7 +67,7 @@ export default function CodeBlock({ language, children }: CodeBlockProps) {
   return (
     <div
       className={`relative group my-6 rounded-lg shadow-md overflow-hidden ${
-        isDark ? "bg-[#1e1e1e]" : "bg-white"
+        isDark ? "bg-black" : "bg-white"
       }`}
     >
       {/* Header */}

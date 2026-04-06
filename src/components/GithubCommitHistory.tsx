@@ -184,7 +184,7 @@ const GitHubCommitHistory: React.FC = () => {
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-lg border border-gray-200 dark:border-gray-600">
+        <div className="bg-white dark:bg-black p-3 rounded-lg shadow-lg border border-gray-200 dark:border-gray-600">
           <p className="text-gray-900 dark:text-white font-medium">{label}</p>
           <p className="text-blue-500">
             Commits: <span className="font-bold">{payload[0].value}</span>
@@ -197,8 +197,8 @@ const GitHubCommitHistory: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="rounded-2xl p-[1px] bg-gray-200 dark:bg-[#171717] mb-8">
-        <div className="bg-white dark:bg-[#111] rounded-2xl p-8 shadow-md dark:shadow-none">
+      <div className="rounded-2xl p-[1px] bg-gray-200 dark:bg-black mb-8">
+        <div className="bg-white dark:bg-black rounded-2xl p-8 shadow-md dark:shadow-none">
           <div className="flex items-center justify-center py-12">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
           </div>
@@ -235,8 +235,8 @@ const GitHubCommitHistory: React.FC = () => {
   ];
 
   return (
-    <div className="rounded-2xl p-[1px] bg-gray-200 dark:bg-[#171717] mb-8 mt-12">
-      <div className="bg-white dark:bg-[#111] rounded-2xl p-8 shadow-md dark:shadow-none">
+    <div className="rounded-2xl p-[1px] bg-gray-200 dark:bg-black mb-8 mt-12">
+      <div className="bg-white dark:bg-black rounded-2xl p-8 shadow-md dark:shadow-none">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
           <div>
@@ -269,7 +269,7 @@ const GitHubCommitHistory: React.FC = () => {
         {/* Stats */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {stats.map((stat, index) => (
-            <div key={index} className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
+            <div key={index} className="bg-gray-50 dark:bg-black rounded-lg p-4">
               <div className={`${stat.color} flex items-center gap-2 mb-1`}>
                 {stat.icon}
                 <span className="text-xl font-bold">{stat.value}</span>

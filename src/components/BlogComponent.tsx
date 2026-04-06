@@ -21,8 +21,8 @@ export default function ClientBlogs({ blogs }: ClientBlogsProps) {
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
         {blogs.map((blog) => (
           <Link href={`/blogs/${blog.slug}`} key={blog.slug}>
-            <div className="rounded-2xl p-[1px] hover:scale-[1.02] transition-transform duration-200 bg-gray-200 dark:bg-gray-700">
-              <div className="bg-white dark:bg-[#111] rounded-2xl overflow-hidden flex flex-col h-full shadow-md dark:shadow-none">
+            <div className="rounded-2xl p-[1px] hover:scale-[1.02] transition-transform duration-200 bg-gray-200 dark:bg-black">
+              <div className="bg-white dark:bg-black rounded-2xl overflow-hidden flex flex-col h-full shadow-md dark:shadow-none border border-transparent dark:border-gray-700">
                 {blog.image && (
                   <div className="relative w-full h-48">
                     <Image

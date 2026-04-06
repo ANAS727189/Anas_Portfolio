@@ -1,57 +1,14 @@
 import { ExternalLink, GitPullRequest, GitMerge, Rocket } from 'lucide-react'
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
+import { openSourceContributions } from '@/data/open-source/contributions'
 
-const contributions = [
-  {
-    project: 'lfortran/lfortran',
-    description:
-      'Compiler contributions across parser semantics, regression coverage, and crash fixes.',
-    merged: 8,
-    open: 3,
-    highlights: [
-      'Legacy slash-initialization syntax support in declarations',
-      'Optional array bounds-check skip fix',
-      'Forward referenced procedure pointer handling fixes',
-    ],
-    link: 'https://github.com/lfortran/lfortran/pulls?q=is%3Apr+is%3Aclosed+author%3AANAS727189',
-  },
-  {
-    project: 'sympy/sympy',
-    description: 'Math engine quality improvements focused on precision and recursion safety.',
-    merged: 2,
-    open: 0,
-    highlights: [
-      'Precision loss fix in evalf_log for args close to 1',
-      'Regression test for gaussian integral recursion error',
-    ],
-    link: 'https://github.com/sympy/sympy/pulls?q=is%3Apr+is%3Aclosed+author%3AANAS727189',
-  },
-  {
-    project: 'golang/tools (gopls)',
-    description: 'Merged fix for panic prevention inside gopls MCP symbol references flow.',
-    merged: 1,
-    open: 0,
-    highlights: [
-      'Nil types.Object panic guard added in symbolReferencesHandler',
-      'Reviewed and merged through Go Gerrit + LUCI checks',
-    ],
-    link: 'https://go-review.googlesource.com/c/tools/+/697315',
-  },
-  {
-    project: 'learningequality/studio',
-    description: 'UI modernization support in the Vuetify removal migration.',
-    merged: 1,
-    open: 0,
-    highlights: ['Upload progress and save-failed dialogs update in Studio migration'],
-    link: 'https://github.com/learningequality/studio',
-  },
-]
-
-const totalMerged = contributions.reduce((acc, item) => acc + item.merged, 0)
-const totalOpen = contributions.reduce((acc, item) => acc + item.open, 0)
+const totalMerged = openSourceContributions.reduce((acc, item) => acc + item.merged, 0)
+const totalOpen = openSourceContributions.reduce((acc, item) => acc + item.open, 0)
 
 const OpenSource = () => {
   return (
-    <section className="bg-white dark:bg-black text-gray-900 dark:text-white py-14">
+    <section id="open-source" className="bg-white dark:bg-black text-gray-900 dark:text-white py-14">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
           <div>
@@ -60,32 +17,32 @@ const OpenSource = () => {
           </div>
 
           <div className="flex gap-3 flex-wrap">
-            <div className="rounded-xl border border-gray-200 dark:border-gray-700 px-4 py-2 bg-gray-50 dark:bg-[#111]">
+            <div className="rounded-xl border border-gray-200 dark:border-gray-700 px-4 py-2 bg-gray-50 dark:bg-black">
               <p className="text-xs text-gray-500 dark:text-gray-400">Merged</p>
               <p className="text-xl font-bold inline-flex items-center gap-1">
                 <GitMerge size={16} /> {totalMerged}
               </p>
             </div>
-            <div className="rounded-xl border border-gray-200 dark:border-gray-700 px-4 py-2 bg-gray-50 dark:bg-[#111]">
+            <div className="rounded-xl border border-gray-200 dark:border-gray-700 px-4 py-2 bg-gray-50 dark:bg-black">
               <p className="text-xs text-gray-500 dark:text-gray-400">Open</p>
               <p className="text-xl font-bold inline-flex items-center gap-1">
                 <GitPullRequest size={16} /> {totalOpen}
               </p>
             </div>
-            <div className="rounded-xl border border-gray-200 dark:border-gray-700 px-4 py-2 bg-gray-50 dark:bg-[#111]">
+            <div className="rounded-xl border border-gray-200 dark:border-gray-700 px-4 py-2 bg-gray-50 dark:bg-black">
               <p className="text-xs text-gray-500 dark:text-gray-400">Repositories</p>
               <p className="text-xl font-bold inline-flex items-center gap-1">
-                <Rocket size={16} /> {contributions.length}
+                <Rocket size={16} /> {openSourceContributions.length}
               </p>
             </div>
           </div>
         </div>
 
         <div className="grid gap-5 md:grid-cols-2">
-          {contributions.map((item) => (
+          {openSourceContributions.map((item) => (
             <article
               key={item.project}
-              className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#111] p-5"
+              className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-black p-5"
             >
               <div className="flex justify-between gap-3">
                 <h4 className="text-xl font-semibold">{item.project}</h4>
@@ -122,6 +79,17 @@ const OpenSource = () => {
               </ul>
             </article>
           ))}
+        </div>
+
+        <div className="mt-8 text-center">
+          <Link href="/open-source">
+            <Button
+              variant="outline"
+              className="text-gray-900 dark:text-white border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800"
+            >
+              Show all open source contributions
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

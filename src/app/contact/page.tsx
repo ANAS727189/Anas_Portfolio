@@ -61,8 +61,8 @@ const Contact = () => {
         {/* Contact Cards */}
         <div className="grid md:grid-cols-2 gap-8 mb-12">
           {/* Contact Info Card */}
-          <div className="rounded-2xl p-[1px] bg-gray-200 dark:bg-[#171717]">
-            <div className="bg-white dark:bg-[#111] rounded-2xl p-8 h-full shadow-md dark:shadow-none">
+          <div className="rounded-2xl p-[1px] bg-gray-200 dark:bg-black">
+            <div className="bg-white dark:bg-black rounded-2xl p-8 h-full shadow-md dark:shadow-none">
               <div className="flex items-center gap-3 mb-6">
                 <div className="p-3 bg-blue-500/10 dark:bg-blue-400/10 rounded-lg">
                   <Mail className="h-6 w-6 text-blue-500 dark:text-blue-400" />
@@ -89,8 +89,8 @@ const Contact = () => {
           </div>
 
           {/* Form Card */}
-          <div className="rounded-2xl p-[1px] bg-gray-200 dark:bg-[#171717]">
-            <div className="bg-white dark:bg-[#111] rounded-2xl p-8 h-full shadow-md dark:shadow-none">
+          <div className="rounded-2xl p-[1px] bg-gray-200 dark:bg-black">
+            <div className="bg-white dark:bg-black rounded-2xl p-8 h-full shadow-md dark:shadow-none">
               <div className="flex items-center gap-3 mb-6">
                 <div className="p-3 bg-green-500/10 dark:bg-green-400/10 rounded-lg">
                   <MessageSquare className="h-6 w-6 text-green-500 dark:text-green-400" />
@@ -120,7 +120,7 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleInputChange}
                     placeholder="Your full name"
-                    className="w-full bg-gray-50 dark:bg-gray-800 border-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 rounded-lg"
+                    className="w-full bg-gray-50 dark:bg-black border-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 rounded-lg"
                   />
                 </div>
 
@@ -141,7 +141,7 @@ const Contact = () => {
                       value={formData.phone}
                       onChange={handleInputChange}
                       placeholder="+91 8974658710"
-                      className="w-full bg-gray-50 dark:bg-gray-800 border-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 rounded-lg"
+                      className="w-full bg-gray-50 dark:bg-black border-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 rounded-lg"
                     />
                   </div>
 
@@ -161,7 +161,7 @@ const Contact = () => {
                       value={formData.email}
                       onChange={handleInputChange}
                       placeholder="anas23khan083@gmail.com"
-                      className="w-full bg-gray-50 dark:bg-gray-800 border-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 rounded-lg"
+                      className="w-full bg-gray-50 dark:bg-black border-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 rounded-lg"
                     />
                   </div>
                 </div>
@@ -183,7 +183,7 @@ const Contact = () => {
                     onChange={handleInputChange}
                     placeholder="Tell me about your project, ideas, or just say hello..."
                     rows={5}
-                    className="w-full bg-gray-50 dark:bg-gray-800 border-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 rounded-lg resize-none"
+                    className="w-full bg-gray-50 dark:bg-black border-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 rounded-lg resize-none"
                   />
                 </div>
 
