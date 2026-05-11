@@ -14,6 +14,55 @@ export interface ProjectData {
 
 export const projectsData: ProjectData[] = [
   {
+    title: 'Message Broker System',
+    image: '/message-broker/Screenshot%20at%202026-05-12%2002-52-20.png',
+    description:
+      'A Kafka-inspired message broker in Go with durable segment-based log storage, TCP binary protocol, consumer-group offsets, and startup recovery.',
+    features: [
+      'Durable file-backed messaging with .log/.idx segment architecture',
+      'Producer, consumer, fetch, and commit flows over a versioned TCP protocol',
+      'Consumer-group offset persistence for restart-safe consumption',
+      'Startup discovery, segment recovery, and rotation for scalable log growth',
+    ],
+    technologies: ['Go', 'TCP', 'Binary Protocols', 'Segmented Logs', 'Concurrency'],
+    githubLink: 'https://github.com/ANAS727189/Message-Broker-System',
+    weeklyRank: 1,
+    weeklyTrend: 'new',
+  },
+  {
+    title: 'Lattice',
+    image: '/lattice-project/landing-page.png',
+    description:
+      'A real-time collaborative document platform with Go microservices, Yjs CRDT synchronization, Redis Pub/Sub fan-out, and PostgreSQL persistence.',
+    features: [
+      'WebSocket-based collaborative editing with conflict-free CRDT state',
+      'Distributed service mesh with API, document, sync, and persistence services',
+      'Role-based document permissions with durable update and snapshot storage',
+      'Production-ready stack with Docker Compose, Make targets, and observability hooks',
+    ],
+    technologies: ['Next.js', 'TypeScript', 'Go', 'Yjs', 'Redis', 'PostgreSQL', 'Docker'],
+    liveLink: 'https://lattice-doc.vercel.app',
+    githubLink: 'https://github.com/ANAS727189/Lattice',
+    weeklyRank: 2,
+    weeklyTrend: 'new',
+  },
+  {
+    title: 'DevSecOps Pipeline',
+    image: '/dev-pipeline/1.png',
+    description:
+      'An end-to-end DevSecOps CI/CD implementation combining Jenkins, Terraform, Ansible, Trivy security gates, and Prometheus/Grafana monitoring on AWS.',
+    features: [
+      'Jenkins-driven CI/CD pipeline with automated build, scan, and deploy stages',
+      'Dual-stage Trivy scanning for source dependency and container image vulnerabilities',
+      'Infrastructure provisioning via Terraform and dynamic host configuration with Ansible',
+      'Integrated observability stack using Prometheus + Grafana dashboards',
+    ],
+    technologies: ['Jenkins', 'Terraform', 'Ansible', 'Trivy', 'AWS', 'Prometheus', 'Grafana'],
+    githubLink: 'https://github.com/ANAS727189/DevSecOps-Pipeline',
+    weeklyRank: 3,
+    weeklyTrend: 'new',
+  },
+  {
     title: 'SangamAI',
     image: '/sangam-ai.jpeg',
     description:
@@ -26,9 +75,6 @@ export const projectsData: ProjectData[] = [
     ],
     technologies: ['Next.js', 'FastAPI', 'Python', 'LangChain', 'FAISS', 'Firebase'],
     githubLink: 'https://github.com/ANAS727189/SangamAI',
-    weeklyRank: 1,
-    weeklyTrend: 'up',
-    weeklyDelta: 2,
   },
   {
     title: 'Trunk',
@@ -43,9 +89,6 @@ export const projectsData: ProjectData[] = [
     ],
     technologies: ['Go', 'Git internals', 'SHA-1', 'Zlib', 'CLI'],
     githubLink: 'https://github.com/ANAS727189/Trunk',
-    weeklyRank: 2,
-    weeklyTrend: 'down',
-    weeklyDelta: 1,
   },
   {
     title: 'SolThrone',
@@ -61,8 +104,6 @@ export const projectsData: ProjectData[] = [
     technologies: ['Next.js', 'TypeScript', 'Solana', 'Anchor', 'Rust', 'Tailwind CSS'],
     liveLink: 'https://who-wants-to-be-a-king.vercel.app/',
     githubLink: 'https://github.com/ANAS727189/SolThrone',
-    weeklyRank: 3,
-    weeklyTrend: 'new',
   },
   {
     title: 'Pixel UI - 8-Bit Component Library',
