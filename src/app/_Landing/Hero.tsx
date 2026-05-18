@@ -92,7 +92,7 @@ const Hero = () => {
       {/* ── Buttons ── */}
       <div className="flex gap-5 relative z-10">
         <a
-          href="https://drive.google.com/file/d/1Ra77p-v8XALn5OYr7r_Sy86pTMSuw8Ka/view?usp=sharing"
+          href="https://drive.google.com/file/d/1G1FHcVm0xa0mVGFJmspr8clXg9ptcKLj/view?usp=sharing"
           target="_blank"
           rel="noopener noreferrer"
         >
